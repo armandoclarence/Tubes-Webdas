@@ -4,28 +4,23 @@
     <meta charset="UTF-8">
     <title>紫禁城 | Redirecting...</title>
     <script type="text/javascript">
-        // Clean and process path segments safely
-        var pathSegments = window.location.pathname.split('/');
+        // Parse raw location parameters
+        var originUrl = window.location.origin;
+        var fullPath = window.location.pathname;
         
-        // Dynamically evaluate repository depth based on local vs production environment
-        // Localhost (127.0.0.1 or localhost) has a depth of 1 for the first route segment
-        // GitHub Pages repository subfolder requires slicing after the repository folder name
-        var isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
-        
-        // CRITICAL ADAPTIVE FILTER: 
-        // Set this to 2 if your GitHub Pages URL has a repository subfolder name path 
-        // (e.g., username.github.io/repository-name/architecture)
-        var repoDepth = isLocal ? 1 : 2; 
+        // Dynamically compute depth adjustments based on subfolder structure
+        var targetSegment = "";
+        if (fullPath.includes('/Tubes-Webdas')) {
+            // Slices out '/Tubes-Webdas/' component to parse subpath string arrays cleanly
+            targetSegment = fullPath.replace('/Tubes-Webdas', '').replace(/^\/+|\/+$/g, '');
+        } else {
+            targetSegment = fullPath.replace(/^\/+|\/+$/g, '');
+        }
 
-        // Reconstruct the intended semantic path string safely
-        var segmentTarget = pathSegments.slice(repoDepth).join('/');
+        // Build clean query redirection parameter
+        var finalRedirectTarget = originUrl + (fullPath.includes('/Tubes-Webdas') ? '/Tubes-Webdas/' : '/') + '?p=' + encodeURIComponent(targetSegment);
         
-        // Redirect the window session back to the clean landing entry directory shell
-        var targetBaseUrl = window.location.protocol + '//' + window.location.hostname + 
-                            (window.location.port ? ':' + window.location.port : '') + '/';
-                            
-        // Append the fallback clean layout parameter data structure string
-        window.location.replace(targetBaseUrl + '?p=' + encodeURIComponent(segmentTarget));
+        window.location.replace(finalRedirectTarget);
     </script>
 </head>
 <body>
