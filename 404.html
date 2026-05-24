@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>紫禁城 | Redirecting...</title>
+    <script type="text/javascript">
+        // Clean and process path segments safely
+        var pathSegments = window.location.pathname.split('/');
+        
+        // Dynamically evaluate repository depth based on local vs production environment
+        // Localhost (127.0.0.1 or localhost) has a depth of 1 for the first route segment
+        // GitHub Pages repository subfolder requires slicing after the repository folder name
+        var isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+        
+        // CRITICAL ADAPTIVE FILTER: 
+        // Set this to 2 if your GitHub Pages URL has a repository subfolder name path 
+        // (e.g., username.github.io/repository-name/architecture)
+        var repoDepth = isLocal ? 1 : 2; 
+
+        // Reconstruct the intended semantic path string safely
+        var segmentTarget = pathSegments.slice(repoDepth).join('/');
+        
+        // Redirect the window session back to the clean landing entry directory shell
+        var targetBaseUrl = window.location.protocol + '//' + window.location.hostname + 
+                            (window.location.port ? ':' + window.location.port : '') + '/';
+                            
+        // Append the fallback clean layout parameter data structure string
+        window.location.replace(targetBaseUrl + '?p=' + encodeURIComponent(segmentTarget));
+    </script>
+</head>
+<body>
+    <p>Loading Imperial Court View...</p>
+</body>
+</html>

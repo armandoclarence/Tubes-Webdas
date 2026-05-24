@@ -1,4 +1,4 @@
-// Route Registry Configuration (Mapping clean paths to target .html filenames)
+// Route Registry Configuration (Mapping clean routing paths to target HTML dynamic views)
 const routes = {
     "/": { title: "紫禁城 | Home", template: "home" },
     "/history": { title: "紫禁城 | History", template: "history.html" },
@@ -7,7 +7,7 @@ const routes = {
     "/life": { title: "紫禁城 | Court Life", template: "life.html" }
 };
 
-// Global App Shell Element Injection Rules
+// Pure JS Global App Shell Layout Component Injection Rules
 function injectGlobalLayoutComponents() {
     const navbarPlaceholder = document.getElementById("navbar-placeholder");
     const footerPlaceholder = document.getElementById("footer-placeholder");
@@ -53,16 +53,51 @@ function injectGlobalLayoutComponents() {
     }
 }
 
-// Location Handler (Fetches inner HTML views dynamically)
+// Bidirectional Timeline Scroll Observer Engine
+function initTimelineScrollObserver() {
+    const blocks = document.querySelectorAll('.timeline-block');
+    if (blocks.length === 0) return;
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '-10% 0px -10% 0px', 
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('scroll-visible');
+            } else {
+                entry.target.classList.remove('scroll-visible');
+            }
+        });
+    }, observerOptions);
+
+    blocks.forEach(block => observer.observe(block));
+}
+
+// Location Router Handler (Senses typed, clicked, or redirected paths dynamically)
 async function handleLocationChange() {
     const loadingScreen = document.getElementById("loading-screen");
     const contentView = document.getElementById("content-view");
     
-    // 1. Instantly display loading overlay during route swap transitions
     if (loadingScreen) {
         loadingScreen.classList.remove("fade-hide");
     }
 
+    // Check if the page loaded via a redirect query parameter from our 404 handler
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectedPath = urlParams.get('p');
+
+    if (redirectedPath) {
+        // Construct the clean version of the target path link
+        const cleanPath = '/' + redirectedPath;
+        // Clean up the browser address bar immediately without reloading the page frame
+        window.history.replaceState({}, "", cleanPath);
+    }
+
+    // Now safely extract the path destination string pattern data
     let path = window.location.pathname;
     if (!routes[path]) path = "/";
 
@@ -71,31 +106,32 @@ async function handleLocationChange() {
 
     if (!contentView) return;
 
-    // Simulate network delay (e.g., 500ms) so users see your beautiful loading screen animation
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Smooth transition buffer window (400ms)
+    await new Promise(resolve => setTimeout(resolve, 400));
 
     if (route.template === "home") {
         contentView.innerHTML = renderHomeDashboard();
     } else {
         try {
-            // Fetch content dynamically from subfiles ending with .html (Full Snippet Support!)
+            // Stream the targeted HTML component data fragments from the content folder space
             const response = await fetch(`/content/${route.template}`);
-            if (!response.ok) throw new Error("View not found");
+            if (!response.ok) throw new Error("Template loading error");
             const rawHtml = await response.text();
             contentView.innerHTML = rawHtml;
         } catch (error) {
             contentView.innerHTML = `
             <div class="container my-5 text-center">
                 <div class="content-container animate-route-in">
-                    <h2 class="text-danger fw-bold">Error 404</h2>
-                    <p class="lead text-muted">Failed to resolve imperial content channel view.</p>
+                    <h2 class="text-danger fw-bold font-script">View Error 404</h2>
+                    <p class="lead text-muted">Failed to locate or stream the requested page view.</p>
                 </div>
             </div>`;
         }
     }
 
-    // 2. Refresh Navigation states and hide the loading screen with a smooth fade
     injectGlobalLayoutComponents();
+    initTimelineScrollObserver();
+    
     if (loadingScreen) {
         loadingScreen.classList.add("fade-hide");
     }
@@ -114,7 +150,6 @@ document.body.addEventListener("click", (e) => {
 window.addEventListener("popstate", handleLocationChange);
 window.addEventListener("DOMContentLoaded", handleLocationChange);
 
-// Home template blueprint generator
 function renderHomeDashboard() {
     return `
     <section id="chinaHighlightsCarousel" class="carousel slide carousel-fade shadow animate-route-in" data-bs-ride="carousel">
@@ -132,7 +167,7 @@ function renderHomeDashboard() {
                     <div class="carousel-caption-card col-12 col-md-8 col-lg-7 shadow-lg">
                         <span class="badge bg-warning text-dark mb-2 fw-bold text-uppercase">The Grandest Celebration</span>
                         <h2 class="h3 h1-md fw-bold mb-2">1. The Lunar New Year (Spring Festival)</h2>
-                        <p class="small text-light">Experience China's most significant cultural festival. Marked by dragon dances, family reunions, and vibrant decorations, it fills the nation with joy and wishes for prosperity.</p>
+                        <p class="small text-light">Experience China's most significant cultural festival. Marked by dragon dances, family reunions, and vibrant decorations, it fills the nation with joy.</p>
                         <a href="/festival" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore Festivals</a>
                     </div>
                 </div>
@@ -143,7 +178,7 @@ function renderHomeDashboard() {
                     <div class="carousel-caption-card col-12 col-md-8 col-lg-7 shadow-lg">
                         <span class="badge bg-warning text-dark mb-2 fw-bold text-uppercase">A Sea of Lights</span>
                         <h2 class="h3 h1-md fw-bold mb-2">2. The Lantern Festival</h2>
-                        <p class="small text-light">Concluding the New Year celebrations, thousands of glowing silk lanterns are released into the night sky. This stunning display symbolizes reconciliation, peace, and new beginnings.</p>
+                        <p class="small text-light">Concluding the New Year celebrations, thousands of glowing silk lanterns are lit along the palace corridors. This display symbolizes reconciliation, peace, and renewal.</p>
                         <a href="/festival" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore Festivals</a>
                     </div>
                 </div>
@@ -154,7 +189,7 @@ function renderHomeDashboard() {
                     <div class="carousel-caption-card col-12 col-md-8 col-lg-7 shadow-lg">
                         <span class="badge bg-warning text-dark mb-2 fw-bold text-uppercase">Harvest & Reunion</span>
                         <h2 class="h3 h1-md fw-bold mb-2">3. The Mid-Autumn Festival</h2>
-                        <p class="small text-light">A beautiful celebration dedicated to the full moon and harvest bounties. Families gather to admire the moon, light paper lanterns, and share sweet traditional mooncakes under the night sky.</p>
+                        <p class="small text-light">A beautiful celebration dedicated to the full moon and harvest reflections. Families gather to admire the moon, light paper decorations, and share sweet mooncakes.</p>
                         <a href="/festival" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore Festivals</a>
                     </div>
                 </div>
@@ -165,7 +200,7 @@ function renderHomeDashboard() {
                     <div class="carousel-caption-card col-12 col-md-8 col-lg-7 shadow-lg">
                         <span class="badge bg-warning text-dark mb-2 fw-bold text-uppercase">Rhythm & Racing Power</span>
                         <h2 class="h3 h1-md fw-bold mb-2">4. The Dragon Boat Festival</h2>
-                        <p class="small text-light">An energetic festival featuring competitive dragon boat races rowed to the beat of thunderous drums. Celebrated alongside delicious sticky rice dumplings (Zongzi) to honor ancient poets.</p>
+                        <p class="small text-light">An energetic festival featuring competitive dragon boat races rowed to the beat of thunderous drums. Celebrated alongside delicious sticky rice dumplings (Zongzi).</p>
                         <a href="/festival" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore Festivals</a>
                     </div>
                 </div>
@@ -176,7 +211,7 @@ function renderHomeDashboard() {
                     <div class="carousel-caption-card col-12 col-md-8 col-lg-7 shadow-lg">
                         <span class="badge bg-warning text-dark mb-2 fw-bold text-uppercase">Honor & Remembrance</span>
                         <h2 class="h3 h1-md fw-bold mb-2">5. The Qingming (Tomb-Sweeping) Festival</h2>
-                        <p class="small text-light">A peaceful spring festival focused on honoring ancestors. Families connect with nature, fly kites in the spring breeze, and step outside to celebrate the renewal of life.</p>
+                        <p class="small text-light">A peaceful spring festival focused on ancestral veneration. Families connect with nature, fly kites in the spring breeze, and step outside to celebrate the renewal of life.</p>
                         <a href="/festival" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore Festivals</a>
                     </div>
                 </div>

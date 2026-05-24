@@ -224,3 +224,146 @@ body {
     background-color: var(--dark-burgundy); 
     border-top: 3px solid var(--imperial-gold); 
 }
+
+/* ==========================================================================
+   RESPONSIVE SCROLLING TIMELINE ARCHITECTURE
+   ========================================================================== */
+.timeline-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+/* Central vertical track line */
+.timeline-wrapper::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: var(--imperial-red);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+/* Timeline Layout Blocks */
+.timeline-block {
+    position: relative;
+    width: 50%;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, opacity;
+}
+
+/* Left side alignment */
+.timeline-block-left {
+    left: 0;
+    text-align: right;
+}
+
+/* Right side alignment */
+.timeline-block-right {
+    left: 50%;
+    text-align: left;
+}
+
+/* Animated structural entry state triggered via Scroll Observer */
+.timeline-block.scroll-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Custom internal cards container */
+.timeline-card {
+    padding: 25px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(204, 164, 59, 0.15);
+    position: relative;
+}
+
+.timeline-block-left .timeline-card {
+    border-right: 4px solid var(--imperial-gold);
+}
+
+.timeline-block-right .timeline-card {
+    border-left: 4px solid var(--imperial-gold);
+}
+
+/* Central Node Indicator Dots */
+.timeline-block::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #FFFFFF;
+    border: 4px solid var(--imperial-gold);
+    border-radius: 50%;
+    top: 30px;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+
+.timeline-block-left::before {
+    right: -10px;
+}
+
+.timeline-block-right::before {
+    left: -10px;
+}
+
+/* Highlight timeline dot when block is visible */
+.timeline-block.scroll-visible::before {
+    background-color: var(--imperial-red);
+}
+
+.timeline-date {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--imperial-red);
+    margin-bottom: 8px;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE MEDIA QUERIES (BREAKPOINTS)
+   ========================================================================== */
+@media (max-width: 767.98px) {
+    /* Shift center line to the left margin border */
+    .timeline-wrapper::after {
+        left: 31px;
+    }
+
+    /* Force blocks to fill full display width width offsets */
+    .timeline-block {
+        width: 100%;
+        padding-left: 55px;
+        padding-right: 15px;
+        text-align: left !important;
+    }
+
+    .timeline-block-right {
+        left: 0;
+    }
+
+    /* Re-align all node dots to match left track axis */
+    .timeline-block-left::before,
+    .timeline-block-right::before {
+        left: 21px;
+        right: auto;
+    }
+
+    .timeline-block-left .timeline-card {
+        border-right: none;
+        border-left: 4px solid var(--imperial-gold);
+    }
+}
+
+.style-cat-card {
+    height: 180px !important;
+}
