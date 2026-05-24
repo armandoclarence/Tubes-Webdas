@@ -3,7 +3,7 @@
    ========================================================================== */
 @font-face {
     font-family: 'Kaushan Script';
-    src: url('/fonts/KaushanScript-Regular.ttf') format('truetype');
+    src: url('../fonts/KaushanScript-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

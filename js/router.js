@@ -172,18 +172,40 @@ async function handleLocationChange() {
 }
 
 // Global click event interception tracking rules configuration mapping
+// Dynamic Link Interceptor Event Listener
 document.body.addEventListener("click", (e) => {
+    // Find the closest anchor tag that was clicked
     const targetLink = e.target.closest("a");
+    
     if (targetLink && targetLink.getAttribute("href")) {
-        const href = targetLink.getAttribute("href");
-        const basePrefix = getBaseBasenamePrefix();
-        
-        // Match link clicks starting with the server root or the custom repository folder prefix path
-        if (href.startsWith('/') || (basePrefix && href.startsWith(basePrefix))) {
-            e.preventDefault();
-            window.history.pushState({}, "", href);
-            handleLocationChange();
+        let href = targetLink.getAttribute("href");
+        const basePrefix = getBaseBasenamePrefix(); // Yields '/Tubes-Webdas' or ''
+
+        // Ignore external absolute links, mailto/tel protocols, and pure hash scroll buttons
+        if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) {
+            return; 
         }
+
+        e.preventDefault();
+
+        // 1. CLEAN UP PATH CONFLICTS:
+        // Strip out the base prefix if it's already mistakenly hardcoded into the link string
+        if (basePrefix && href.startsWith(basePrefix)) {
+            href = href.slice(basePrefix.length);
+        }
+
+        // Ensure the sub-route path string starts with a single clean forward slash separator
+        if (!href.startsWith('/')) {
+            href = '/' + href;
+        }
+
+        // 2. CONSTRUCT GLOBAL TARGET PATHWAY:
+        // Combine your subfolder prefix matching with the sanitized target path route name string
+        const finalTargetUrl = basePrefix + href;
+
+        // Push clean semantic state history tokens and fire the location rendering lifecycle engine
+        window.history.pushState({}, "", finalTargetUrl);
+        handleLocationChange();
     }
 });
 
