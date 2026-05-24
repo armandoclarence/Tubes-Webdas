@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CUSTOM FONT CONFIGURATION
+   CUSTOM IMPERIAL TYPOGRAPHY & DESIGN SYSTEM TOKEN VARIABLES
    ========================================================================== */
 @font-face {
     font-family: 'Kaushan Script';
@@ -8,13 +8,22 @@
     font-style: normal;
 }
 
-/* Style Variable Token System */
 :root {
     --imperial-red: #A30000;
     --dark-burgundy: #4A0000;
     --soft-white: #FDFBF7;
     --imperial-gold: #FFDF6D;
     --charcoal: #2B2B2B;
+    
+    /* Integrated Dynasty Context Palette Assets */
+    --ink: #1a0a00;
+    --paper: #f5efe3;
+    --red: #c0392b;
+    --gold: #b8962e;
+    --gold-light: #e8c96a;
+    --silk: #d4a96a;
+    --fade: #8b7355;
+    --border: #c9a96e;
 }
 
 body {
@@ -24,17 +33,9 @@ body {
     overflow-x: hidden;
 }
 
-.font-script {
-    font-family: 'Kaushan Script', cursive, sans-serif !important;
-}
-
-.text-gold {
-    color: var(--imperial-gold) !important;
-}
-
-.text-justify {
-    text-align: justify;
-}
+.font-script { font-family: 'Kaushan Script', cursive, sans-serif !important; }
+.text-gold { color: var(--imperial-gold) !important; }
+.text-justify { text-align: justify; }
 
 .divider-bar {
     width: 80px;
@@ -45,7 +46,7 @@ body {
 }
 
 /* ==========================================================================
-   LOADING SCREEN OVERLAY STYLES
+   SPA ENGINE LOADING OVERLAY SCREEN
    ========================================================================== */
 .loading-overlay {
     position: fixed;
@@ -54,7 +55,7 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: var(--dark-burgundy);
-    z-index: 9999; /* Higher than Bootstrap sticky navbar */
+    z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +64,6 @@ body {
     visibility: visible;
 }
 
-/* Hide modifier injected via JavaScript Router */
 .loading-overlay.fade-hide {
     opacity: 0;
     visibility: hidden;
@@ -76,12 +76,12 @@ body {
 }
 
 /* ==========================================================================
-   NAVBAR & COMPONENTS ARCHITECTURE
+   NAVBAR & HOVER TRANSITION STYLES (NO MORE FLASH BANG)
    ========================================================================== */
 .navbar-custom {
     background-color: var(--imperial-red) !important;
     border-bottom: 4px solid var(--imperial-gold);
-    padding: 10px 0;
+    padding: 8px 0;
 }
 
 .navbar-custom .navbar-brand {
@@ -92,35 +92,30 @@ body {
 }
 
 .navbar-custom .nav-link {
-    color: #FFFFFF !important;
+    color: rgba(255, 255, 255, 0.8) !important; /* Soft white initial state */
     display: inline-block;
     font-weight: 500;
     letter-spacing: 0.3px;
-    transition: transform 0.25s ease, color 0.25s ease;
-    padding: 8px 16px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    transition: color 0.25s ease, background-color 0.25s ease; /* Fluid color transitions */
 }
 
-.navbar-custom .nav-link:hover, 
-.navbar-custom .nav-link.active,
-.dropdown-menu-custom .dropdown-item:hover {
+/* Subtle, deep velvet contrast on hover instead of flash bang glare */
+.navbar-custom .nav-link:hover {
     color: var(--imperial-gold) !important;
-    transform: scale(1.05);
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
-.dropdown-menu-custom {
-    background-color: var(--dark-burgundy) !important;
-    border: 2px solid var(--imperial-gold) !important;
-    border-radius: 8px;
-}
-
-.dropdown-menu-custom .dropdown-item {
-    font-family: 'Kaushan Script', cursive, sans-serif;
-    color: #FFFFFF !important;
-    padding: 10px 20px;
+/* Active tab style */
+.navbar-custom .nav-link.active {
+    color: var(--imperial-gold) !important;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, 0.25);
 }
 
 /* ==========================================================================
-   IMMERSIVE CAROUSEL SLIDESHOW
+   IMMERSIVE INTERACTIVE CAROUSEL COMPONENTS
    ========================================================================== */
 .carousel-custom-item {
     height: 70vh;
@@ -150,7 +145,7 @@ body {
 }
 
 /* ==========================================================================
-   SPA DYNAMIC ARTICLE RESPONSIVE CONTAINERS
+   SPA LAYOUT TEMPLATE WRAPPERS & UTILITIES
    ========================================================================== */
 .content-container {
     background: #FFFFFF;
@@ -179,191 +174,196 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(0,0,0,0.05);
     padding: 12px;
-    margin-bottom: 10px;
 }
 
-.welcome-card img { 
-    width: 100%; 
-    height: 220px; 
-    object-fit: cover; 
-    border-radius: 8px; 
-}
-
-.welcome-card:hover { 
-    transform: translateY(-8px); 
-    box-shadow: 0 16px 32px rgba(92, 0, 0, 0.12) !important; 
-}
-
-.responsive-fluid-img { 
-    width: 100%; 
-    height: auto; 
-    object-fit: cover; 
-    border-radius: 8px; 
-}
-
-.fixed-gallery-img { 
-    width: 100%; 
-    height: 250px; 
-    object-fit: cover; 
-    border-radius: 8px; }
-
-.editorial-hero-img { width: 100%; 
-    height: 240px; 
-    object-fit: cover; 
-    border-radius: 8px; 
-    margin: 20px 0; 
-}
-
-@media (min-width: 768px) { 
-    .editorial-hero-img { 
-        height: 420px; 
-    } 
-}
-
-.footer-custom { 
-    background-color: var(--dark-burgundy); 
-    border-top: 3px solid var(--imperial-gold); 
-}
+.welcome-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; }
+.welcome-card:hover { transform: translateY(-8px); box-shadow: 0 16px 32px rgba(92, 0, 0, 0.12) !important; }
+.responsive-fluid-img { width: 100%; height: auto; object-fit: cover; border-radius: 8px; }
+.fixed-gallery-img { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; }
+.editorial-hero-img { width: 100%; height: 240px; object-fit: cover; border-radius: 8px; margin: 20px 0; }
+@media (min-width: 768px) { .editorial-hero-img { height: 420px; } }
+.footer-custom { background-color: var(--dark-burgundy); border-top: 3px solid var(--imperial-gold); }
+.style-cat-card { height: 180px !important; }
 
 /* ==========================================================================
-   RESPONSIVE SCROLLING TIMELINE ARCHITECTURE
+   BIDIRECTIONAL SCROLL-OBSERVED TIMELINE ENGINE (Palace History)
    ========================================================================== */
-.timeline-wrapper {
-    position: relative;
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 15px;
+.history-header {
+    text-align: center;
+    padding: 40px 20px;
+    border-bottom: 3px double var(--border);
+    background: rgba(184, 150, 46, 0.03);
+    border-radius: 12px;
+    margin-bottom: 40px;
 }
 
-/* Central vertical track line */
+.header-chinese {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(38px, 6vw, 64px);
+    color: var(--imperial-red);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.timeline-nav-scroll {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 40px;
+    scrollbar-width: thin;
+    
+    /* STICKY TIMELINE CONFIGURATION */
+    position: sticky;
+    top: 60px; /* Snaps perfectly below the 60px navbar */
+    z-index: 90;
+    background-color: var(--soft-white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border-radius: 0 0 12px 12px;
+}
+
+.timeline-nav-scroll a {
+    display: inline-block;
+    padding: 6px 14px;
+    color: var(--fade);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    transition: all 0.25s ease;
+}
+
+.timeline-nav-scroll a:hover {
+    color: #FFFFFF;
+    background-color: var(--imperial-red);
+    border-color: var(--imperial-red);
+}
+
+.timeline-wrapper {
+    position: relative;
+    margin: 40px auto;
+}
+
 .timeline-wrapper::after {
     content: '';
     position: absolute;
     width: 4px;
-    background-color: var(--imperial-red);
+    background-color: var(--border);
     top: 0;
     bottom: 0;
-    left: 50%;
-    margin-left: -2px;
+    left: 31px;
 }
 
-/* Timeline Layout Blocks */
 .timeline-block {
     position: relative;
-    width: 50%;
-    padding: 20px 40px;
-    box-sizing: border-box;
+    width: 100%;
+    padding-left: 60px;
+    padding-bottom: 50px;
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
-                transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translateX(30px);
+    transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, opacity;
 }
 
-/* Left side alignment */
-.timeline-block-left {
-    left: 0;
-    text-align: right;
-}
-
-/* Right side alignment */
-.timeline-block-right {
-    left: 50%;
-    text-align: left;
-}
-
-/* Animated structural entry state triggered via Scroll Observer */
 .timeline-block.scroll-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
 }
 
-/* Custom internal cards container */
-.timeline-card {
-    padding: 25px;
-    background: #FFFFFF;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(204, 164, 59, 0.15);
-    position: relative;
-}
-
-.timeline-block-left .timeline-card {
-    border-right: 4px solid var(--imperial-gold);
-}
-
-.timeline-block-right .timeline-card {
-    border-left: 4px solid var(--imperial-gold);
-}
-
-/* Central Node Indicator Dots */
 .timeline-block::before {
     content: '';
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     background-color: #FFFFFF;
-    border: 4px solid var(--imperial-gold);
+    border: 4px solid var(--gold);
     border-radius: 50%;
-    top: 30px;
+    left: 22px;
+    top: 25px;
     z-index: 10;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.4s ease, transform 0.4s ease;
 }
 
-.timeline-block-left::before {
-    right: -10px;
-}
-
-.timeline-block-right::before {
-    left: -10px;
-}
-
-/* Highlight timeline dot when block is visible */
 .timeline-block.scroll-visible::before {
     background-color: var(--imperial-red);
+    transform: scale(1.2);
 }
 
-.timeline-date {
-    font-size: 1.4rem;
+.dynasty-card-panel {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 4px 4px 0 var(--silk);
+    background-color: #FFFFFF;
+}
+
+.dynasty-aside-brand {
+    background-color: var(--ink);
+    color: var(--paper);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.dynasty-aside-brand .char {
+    font-size: 56px;
     font-weight: 700;
-    color: var(--imperial-red);
-    margin-bottom: 8px;
+    color: var(--gold-light);
+    line-height: 1;
 }
 
-/* ==========================================================================
-   MOBILE RESPONSIVE MEDIA QUERIES (BREAKPOINTS)
-   ========================================================================== */
-@media (max-width: 767.98px) {
-    /* Shift center line to the left margin border */
-    .timeline-wrapper::after {
-        left: 31px;
-    }
+.dynasty-aside-brand .name { font-weight: 700; font-size: 19px; letter-spacing: 0.5px; }
+.dynasty-aside-brand .years { font-size: 12px; color: var(--gold-light); }
+.dynasty-aside-brand .badge-tag { padding: 3px 8px; border: 1px solid var(--gold); font-size: 10px; color: var(--gold-light); text-transform: uppercase; }
 
-    /* Force blocks to fill full display width width offsets */
-    .timeline-block {
-        width: 100%;
-        padding-left: 55px;
-        padding-right: 15px;
-        text-align: left !important;
-    }
+.dynasty-main-body { padding: 30px 35px; }
+.dynasty-main-body h2 { color: var(--imperial-red); font-weight: 700; font-size: 26px; }
+.dynasty-main-body .tagline { font-size: 13px; color: var(--gold); text-transform: uppercase; font-weight: 600; margin-bottom: 15px; display: block; }
+.dynasty-main-body p { font-size: 15.5px; line-height: 1.75; color: var(--charcoal); text-align: justify; }
 
-    .timeline-block-right {
-        left: 0;
-    }
-
-    /* Re-align all node dots to match left track axis */
-    .timeline-block-left::before,
-    .timeline-block-right::before {
-        left: 21px;
-        right: auto;
-    }
-
-    .timeline-block-left .timeline-card {
-        border-right: none;
-        border-left: 4px solid var(--imperial-gold);
-    }
+.facts-matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
 }
 
-.style-cat-card {
-    height: 180px !important;
+.fact-cell-item {
+    background: rgba(184, 150, 46, 0.05);
+    border-left: 3px solid var(--gold);
+    padding: 8px 12px;
+}
+
+.fact-cell-item .label { font-size: 11px; text-transform: uppercase; color: var(--fade); display: block; }
+.fact-cell-item .value { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+
+.achievements-list { list-style: none; padding: 0; margin: 20px 0 0 0; }
+.achievements-list li { padding: 6px 0 6px 20px; border-bottom: 1px dotted var(--border); font-size: 14.5px; position: relative; }
+.achievements-list li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 11px; }
+.achievements-list li:last-child { border-bottom: none; }
+
+.dynasty-editorial-quote {
+    margin-top: 20px;
+    padding: 12px 16px;
+    background: rgba(163, 0, 0, 0.03);
+    border-left: 4px solid var(--imperial-red);
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--fade);
+}
+
+@media (max-width: 991.98px) {
+    .dynasty-card-panel { grid-template-columns: 1fr; }
+    .dynasty-aside-brand { flex-direction: row; justify-content: space-around; padding: 15px; flex-wrap: wrap; }
+    .facts-matrix-grid { grid-template-columns: 1fr; }
 }

@@ -1,4 +1,4 @@
-// Base Configuration Registry Mapping Mappings
+// Base Subfolder Registry Configuration Mapping Mappings
 const routes = {
     "/": { title: "紫禁城 | Home", template: "home" },
     "/history": { title: "紫禁城 | History", template: "history.html" },
@@ -7,28 +7,26 @@ const routes = {
     "/life": { title: "紫禁城 | Court Life", template: "life.html" }
 };
 
-// HELPER FUNCTION: Automatically discovers if running inside a subdirectory folder (GitHub Pages vs Local)
+// Automatically evaluates context directory prefixes (GitHub Repositories vs Localhost)
 function getBaseBasenamePrefix() {
     const path = window.location.pathname;
-    // If the path includes Tubes-Webdas, declare that as our base routing root channel prefix
     if (path.includes('/Tubes-Webdas')) {
         return '/Tubes-Webdas';
     }
     return '';
 }
 
-// Global App Shell Element Injection Layout Rules
+// Pure JS App Shell Layout Dynamic Injection Configuration Engine
 function injectGlobalLayoutComponents() {
     const navbarPlaceholder = document.getElementById("navbar-placeholder");
     const footerPlaceholder = document.getElementById("footer-placeholder");
-    
-    // Resolve clean absolute path comparisons inside our navigation links
     const basePrefix = getBaseBasenamePrefix();
-    let currentRawRoute = window.location.pathname;
-    if (basePrefix && currentRawRoute.startsWith(basePrefix)) {
-        currentRawRoute = currentRawRoute.slice(basePrefix.length);
+    
+    let currentRoute = window.location.pathname;
+    if (basePrefix && currentRoute.startsWith(basePrefix)) {
+        currentRoute = currentRoute.slice(basePrefix.length);
     }
-    if (!currentRawRoute) currentRawRoute = "/";
+    if (!currentRoute) currentRoute = "/";
 
     if (navbarPlaceholder) {
         navbarPlaceholder.innerHTML = `
@@ -40,19 +38,20 @@ function injectGlobalLayoutComponents() {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                        <li class="nav-item mx-2">
-                            <a class="nav-link ${currentRawRoute === '/' ? 'active text-gold fw-bold' : ''}" href="${basePrefix}/">Home</a>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/' ? 'active' : ''}" href="${basePrefix}/">Home</a>
                         </li>
-                        <li class="nav-item dropdown mx-2">
-                            <a class="nav-link dropdown-toggle ${currentRawRoute !== '/' ? 'active text-gold fw-bold' : ''}" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Explore Categories
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end shadow-lg" aria-labelledby="categoriesDropdown">
-                                <li><a class="dropdown-item ${currentRawRoute === '/history' ? 'fw-bold text-gold' : ''}" href="${basePrefix}/history">📜 Palace History</a></li>
-                                <li><a class="dropdown-item ${currentRawRoute === '/architecture' ? 'fw-bold text-gold' : ''}" href="${basePrefix}/architecture">📐 Sacred Architecture</a></li>
-                                <li><a class="dropdown-item ${currentRawRoute === '/festival' ? 'fw-bold text-gold' : ''}" href="${basePrefix}/festival">🏮 Grand Festivals</a></li>
-                                <li><a class="dropdown-item ${currentRawRoute === '/life' ? 'fw-bold text-gold' : ''}" href="${basePrefix}/life">👑 Daily Court Life</a></li>
-                            </ul>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/history' ? 'active' : ''}" href="${basePrefix}/history">History</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/architecture' ? 'active' : ''}" href="${basePrefix}/architecture">Architecture</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/festival' ? 'active' : ''}" href="${basePrefix}/festival">Festival</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/life' ? 'active' : ''}" href="${basePrefix}/life">Court Life</a>
                         </li>
                     </ul>
                 </div>
@@ -70,7 +69,7 @@ function injectGlobalLayoutComponents() {
     }
 }
 
-// Dynamic Timeline Scroll Observer Engine
+// Bidirectional Timeline Scroll Observer Engine
 function initTimelineScrollObserver() {
     const blocks = document.querySelectorAll('.timeline-block');
     if (blocks.length === 0) return;
@@ -94,7 +93,25 @@ function initTimelineScrollObserver() {
     blocks.forEach(block => observer.observe(block));
 }
 
-// Location Router Handler
+// Custom internal page offset scroll tracker for timeline panels
+function initAnchorScrollOffsets() {
+    const anchors = document.querySelectorAll('.timeline-nav-scroll a');
+    anchors.forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Combined Navbar (~60px) + Sticky Timeline Ribbon (~52px) + Padding (~18px)
+                const combinedNavbarHeights = 130;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - combinedNavbarHeights;
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            }
+        });
+    });
+}
+
+// Master Location Change Router Engine Loop
 async function handleLocationChange() {
     const loadingScreen = document.getElementById("loading-screen");
     const contentView = document.getElementById("content-view");
@@ -104,27 +121,21 @@ async function handleLocationChange() {
     }
 
     const basePrefix = getBaseBasenamePrefix();
-    
-    // Check if loading via redirected path query parameter from our 404 handler
     const urlParams = new URLSearchParams(window.location.search);
     const redirectedPath = urlParams.get('p');
 
     if (redirectedPath) {
-        // Build clear relative link mapping back across folder roots safely
         let targetCleanUrl = basePrefix + '/' + redirectedPath.replace(/\/+/g, '/');
-        // Clean double forward slashes safely
         targetCleanUrl = targetCleanUrl.replace(/\/+/g, '/');
         window.history.replaceState({}, "", targetCleanUrl);
     }
 
-    // Isolate active clean internal route name by pulling out the repository subfolder prefix name
     let cleanPath = window.location.pathname;
     if (basePrefix && cleanPath.startsWith(basePrefix)) {
         cleanPath = cleanPath.slice(basePrefix.length);
     }
     if (!cleanPath) cleanPath = "/";
 
-    // Fallback safe routing check mapping rule
     if (!routes[cleanPath]) {
         cleanPath = "/";
     }
@@ -134,21 +145,19 @@ async function handleLocationChange() {
 
     if (!contentView) return;
 
-    // Smooth UI transition buffer window (350ms)
-    await new Promise(resolve => setTimeout(resolve, 350));
+    await new Promise(resolve => setTimeout(resolve, 400));
 
     if (route.template === "home") {
         contentView.innerHTML = renderHomeDashboard();
     } else {
         try {
-            // CRITICAL FETCH RECONSTRUCTION: Combines subpath prefix references safely
             const response = await fetch(`${basePrefix}/content/${route.template}`);
-            if (!response.ok) throw new Error("Content file stream error");
+            if (!response.ok) throw new Error("File stream read issue.");
             let rawHtml = await response.text();
             
-            // UI/UX Asset Fix: Dynamically changes /img/ into repository-safe relative image references!
             if (basePrefix) {
                 rawHtml = rawHtml.replace(/src="\/img\//g, `src="${basePrefix}/img/`);
+                rawHtml = rawHtml.replace(/src="img\//g, `src="${basePrefix}/img/`);
             }
             
             contentView.innerHTML = rawHtml;
@@ -157,7 +166,7 @@ async function handleLocationChange() {
             <div class="container my-5 text-center">
                 <div class="content-container animate-route-in">
                     <h2 class="text-danger fw-bold font-script">View Error 404</h2>
-                    <p class="lead text-muted">Failed to locate or stream the requested imperial page view.</p>
+                    <p class="lead text-muted">Failed to locate or stream the requested page channel.</p>
                 </div>
             </div>`;
         }
@@ -165,46 +174,31 @@ async function handleLocationChange() {
 
     injectGlobalLayoutComponents();
     initTimelineScrollObserver();
+    initAnchorScrollOffsets();
     
     if (loadingScreen) {
         loadingScreen.classList.add("fade-hide");
     }
 }
 
-// Global click event interception tracking rules configuration mapping
-// Dynamic Link Interceptor Event Listener
+// Catch layout link click activities globally
 document.body.addEventListener("click", (e) => {
-    // Find the closest anchor tag that was clicked
     const targetLink = e.target.closest("a");
-    
     if (targetLink && targetLink.getAttribute("href")) {
         let href = targetLink.getAttribute("href");
-        const basePrefix = getBaseBasenamePrefix(); // Yields '/Tubes-Webdas' or ''
-
-        // Ignore external absolute links, mailto/tel protocols, and pure hash scroll buttons
-        if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) {
-            return; 
-        }
+        const basePrefix = getBaseBasenamePrefix();
+        
+        if (href.startsWith('#')) return;
+        if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
 
         e.preventDefault();
 
-        // 1. CLEAN UP PATH CONFLICTS:
-        // Strip out the base prefix if it's already mistakenly hardcoded into the link string
         if (basePrefix && href.startsWith(basePrefix)) {
             href = href.slice(basePrefix.length);
         }
+        if (!href.startsWith('/')) href = '/' + href;
 
-        // Ensure the sub-route path string starts with a single clean forward slash separator
-        if (!href.startsWith('/')) {
-            href = '/' + href;
-        }
-
-        // 2. CONSTRUCT GLOBAL TARGET PATHWAY:
-        // Combine your subfolder prefix matching with the sanitized target path route name string
-        const finalTargetUrl = basePrefix + href;
-
-        // Push clean semantic state history tokens and fire the location rendering lifecycle engine
-        window.history.pushState({}, "", finalTargetUrl);
+        window.history.pushState({}, "", basePrefix + href);
         handleLocationChange();
     }
 });
@@ -212,7 +206,6 @@ document.body.addEventListener("click", (e) => {
 window.addEventListener("popstate", handleLocationChange);
 window.addEventListener("DOMContentLoaded", handleLocationChange);
 
-// Home Screen Dashboard Builder Frame Module
 function renderHomeDashboard() {
     const basePrefix = getBaseBasenamePrefix();
     return `
@@ -286,9 +279,11 @@ function renderHomeDashboard() {
     </section>
 
     <main class="container my-5 py-2 animate-route-in">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold display-5 font-script text-danger">The Imperial Pillars of China</h2>
-            <p class="text-muted max-width-600 mx-auto px-2">Discover the timeless wonders, profound heritage, and cultural legacies preserved within the historic heart of China.</p>
+        
+        <div class="history-header mb-5">
+            <div class="header-chinese">故宫博物院</div>
+            <h2 class="fw-bold font-script text-danger fs-3 mt-1">The Imperial Pillars of China</h2>
+            <p class="text-muted small max-width-600 mx-auto mt-2">Discover the timeless wonders, profound heritage, and cultural legacies preserved within the historic heart of China.</p>
             <div class="divider-bar"></div>
         </div>
         
@@ -298,8 +293,8 @@ function renderHomeDashboard() {
                     <img src="${basePrefix}/img/foto2.jpg.jpeg" class="card-img-top" alt="History Showcase">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title fw-bold text-danger mb-2">📜 Palace History</h5>
-                        <p class="card-text text-muted small flex-grow-1">Trace 500 years of dynastic transitions, imperial declarations, and historical triumphs across the Ming and Qing eras.</p>
-                        <a href="${basePrefix}/history" class="btn btn-outline-danger btn-sm w-100 fw-bold mt-3">Read Article</a>
+                        <p class="card-text text-muted small flex-grow-1">Trace 4,000 years of dynastic transitions, imperial declarations, and historical triumphs across the core Chinese eras.</p>
+                        <a href="${basePrefix}/history" class="btn btn-outline-danger btn-sm w-100 fw-bold mt-3">Read Timeline</a>
                     </div>
                 </div>
             </div>
@@ -334,5 +329,6 @@ function renderHomeDashboard() {
                 </div>
             </div>
         </div>
-    </main>`;
+    </main>
+    `;
 }

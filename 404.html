@@ -4,22 +4,17 @@
     <meta charset="UTF-8">
     <title>紫禁城 | Redirecting...</title>
     <script type="text/javascript">
-        // Parse raw location parameters
         var originUrl = window.location.origin;
         var fullPath = window.location.pathname;
         
-        // Dynamically compute depth adjustments based on subfolder structure
         var targetSegment = "";
         if (fullPath.includes('/Tubes-Webdas')) {
-            // Slices out '/Tubes-Webdas/' component to parse subpath string arrays cleanly
             targetSegment = fullPath.replace('/Tubes-Webdas', '').replace(/^\/+|\/+$/g, '');
         } else {
             targetSegment = fullPath.replace(/^\/+|\/+$/g, '');
         }
 
-        // Build clean query redirection parameter
         var finalRedirectTarget = originUrl + (fullPath.includes('/Tubes-Webdas') ? '/Tubes-Webdas/' : '/') + '?p=' + encodeURIComponent(targetSegment);
-        
         window.location.replace(finalRedirectTarget);
     </script>
 </head>
