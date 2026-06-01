@@ -1,0 +1,104 @@
+/* ==========================================================================
+   CUSTOM IMPERIAL TYPOGRAPHY & DESIGN SYSTEM TOKEN VARIABLES
+   ========================================================================== */
+@font-face {
+    font-family: 'Kaushan Script';
+    src: url('../fonts/KaushanScript-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --imperial-red: #A30000;
+    --dark-burgundy: #4A0000;
+    --soft-white: #FDFBF7;
+    --imperial-gold: #FFDF6D;
+    --charcoal: #2B2B2B;
+    
+    /* Integrated Dynasty Context Palette Assets */
+    --ink: #1a0a00;
+    --paper: #f5efe3;
+    --red: #c0392b;
+    --gold: #b8962e;
+    --gold-light: #e8c96a;
+    --silk: #d4a96a;
+    --fade: #8b7355;
+    --border: #c9a96e;
+}
+
+body {
+    background-color: var(--soft-white);
+    color: var(--charcoal);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+    padding-top: 65px; /* Kompensasi agar konten tidak tertutup fixed navbar */
+}
+
+.font-script { font-family: 'Kaushan Script', cursive, sans-serif !important; }
+.text-gold { color: var(--imperial-gold) !important; }
+.text-justify { text-align: justify; }
+
+.divider-bar {
+    width: 80px;
+    height: 4px;
+    background-color: var(--imperial-gold);
+    margin: 15px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* ==========================================================================
+   SPA LAYOUT TEMPAPER WRAPPERS & SYNCHRONIZED TIMING
+   ========================================================================== */
+.content-container {
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    border: 1px solid rgba(204, 164, 59, 0.15);
+    padding: 20px !important;
+    overflow: visible !important; /* critical fix: agar fixed & sticky tidak rusak */
+}
+
+@media (min-width: 768px) { 
+    .content-container { padding: 45px !important; } 
+}
+
+.animate-route-in {
+    animation: slideUpFade 0.35s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+}
+
+@keyframes slideUpFade {
+    from { 
+        opacity: 0; 
+        transform: translateY(12px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.footer-custom { 
+    background-color: var(--dark-burgundy); 
+    border-top: 3px solid var(--imperial-gold); 
+}
+
+/* ==========================================================================
+   LOADING SCREEN CONTEXT - HARD REMOVAL VIA DISPLAY NONE
+   ========================================================================== */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background-color: var(--dark-burgundy);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#loading-screen.fade-hide {
+    opacity: 0;
+    pointer-events: none;
+    display: none !important; /* Memaksa elemen keluar dari susunan rendering UI */
+}

@@ -1,0 +1,178 @@
+/* ==========================================================================
+   RESTORED STANDAR IMPERIAL FIXED NAVBAR WITH SMOOTH COLLAPSE
+   ========================================================================== */
+.navbar-custom {
+    background-color: var(--imperial-red) !important;
+    border-bottom: 4px solid var(--imperial-gold);
+    padding: 10px 0;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1050;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* ANTI-AWKWARD MOBILE COLLAPSE ANIMATION */
+.navbar-collapse {
+    /* Menggunakan transisi maksimum tinggi yang halus saat menu hamburger dibuka di HP */
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.navbar-custom .navbar-brand {
+    font-family: 'Kaushan Script', cursive, sans-serif;
+    color: #FFFFFF !important;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-custom .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    display: inline-block;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link.active {
+    color: var(--imperial-gold) !important;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   ENHANCED DROPDOWN MANAGEMENT (ANTI-FLICKER)
+   ========================================================================== */
+.navbar-custom .dropdown-menu.dropdown-menu-custom {
+    background-color: var(--dark-burgundy) !important;
+    border: 2px solid var(--imperial-gold) !important;
+    border-radius: 8px;
+    padding: 8px 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    max-height: 420px; 
+    overflow-y: auto;
+    scrollbar-width: thin;
+    
+    /* Membuat efek memudar halus saat dropdown Bootstrap dipicu */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    display: block !important; /* Diubah ke block agar transisi CSS dibaca browser */
+}
+
+.navbar-custom .dropdown-menu.dropdown-menu-custom.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.navbar-custom .dropdown-menu-custom .dropdown-item {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    padding: 8px 20px;
+    transition: all 0.25s ease;
+}
+
+.navbar-custom .dropdown-menu-custom .dropdown-item.sub-anchor-link {
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-size: 13.5px;
+    padding: 8px 22px;
+}
+
+.navbar-custom .dropdown-menu-custom .dropdown-item:hover,
+.navbar-custom .dropdown-menu-custom .dropdown-item.sub-anchor-link:hover {
+    color: var(--imperial-gold) !important;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    padding-left: 26px; /* Geser halus yang elegan */
+}
+
+.navbar-custom .dropdown-menu-custom .dropdown-divider {
+    border-top: 1px solid var(--imperial-gold) !important;
+    opacity: 0.2;
+    margin: 6px 0;
+}
+
+/* ==========================================================================
+   MOBILE-FIRST NAVBAR RESPONSIVE PATCHES
+   ========================================================================== */
+.text-gold-accent {
+    color: var(--imperial-gold, #f1c40f);
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-left: 5px;
+}
+
+/* Make toggle button outline matching imperial aesthetics */
+.custom-toggler-btn {
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    padding: 6px 10px;
+}
+.custom-toggler-btn:focus {
+    box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.25) !important;
+}
+
+/* ==========================================================================
+   SMOOTH TRANSITION & OVERFLOW DROPDOWN ENGINE FOR MOBILE
+   ========================================================================== */
+@media (max-width: 991.98px) {
+    /* DEFAULT CLOSED STATE */
+    .navbar-custom .dropdown-menu.dropdown-menu-custom {
+        display: block !important;         /* Must be block so transition can read dimensions */
+        max-height: 0 !important;          /* Collapse height down to 0 */
+        opacity: 0 !important;             /* Make it completely invisible */
+        overflow: hidden !important;       /* CRITICAL: Keeps contents invisible while closed */
+        
+        /* Smooth cubic-bezier transition for maximum sleekness */
+        transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                    opacity 0.3s ease-out !important;
+        
+        /* Strip background styling boxes */
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 0 0 15px !important;
+        margin: 0 !important;
+    }
+
+    /* SMOOTH ACTIVE OPEN STATE (WHEN CLICKED) */
+    .navbar-custom .dropdown-menu.dropdown-menu-custom.show {
+        max-height: 350px !important;      /* Give it enough room to slide open smoothly */
+        opacity: 1 !important;             /* Fade it back in gracefully */
+        overflow-y: auto !important;       /* If content ever exceeds 350px, handle cleanly inside */
+    }
+
+    /* Nested link styling items */
+    .navbar-custom .dropdown-menu-custom .dropdown-item {
+        padding: 8px 12px !important;
+        font-size: 14px !important;
+        color: rgba(255, 255, 255, 0.85) !important;
+        background: transparent !important;
+    }
+
+    /* Visual nested hierarchy tree */
+    .navbar-custom .dropdown-menu-custom .dropdown-item.sub-anchor-link {
+        color: rgba(255, 255, 255, 0.6) !important;
+        font-size: 13px !important;
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0;
+        margin-left: 5px;
+    }
+
+    /* Gentle slide text shift feedback upon touch interaction */
+    .navbar-custom .dropdown-menu-custom .dropdown-item:hover,
+    .navbar-custom .dropdown-menu-custom .dropdown-item.sub-anchor-link:hover {
+        color: var(--imperial-gold, #f1c40f) !important;
+        padding-left: 16px !important;
+    }
+
+    .navbar-custom .dropdown-menu-custom .dropdown-divider {
+        display: none !important;
+    }
+}

@@ -1,0 +1,69 @@
+/* ==========================================================================
+   MUSEUM-GRADE EDITORIAL SHOCKWAVE LAYOUT
+   ========================================================================== */
+.festival-editorial-row {
+    padding: 60px 0;
+    border-bottom: 1px double var(--border);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), 
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+}
+
+.festival-editorial-row.scroll-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.festival-hanzi-side-badge {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: 3.5rem;
+    color: rgba(163, 0, 0, 0.08);
+    line-height: 1.1;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
+.festival-editorial-img-wrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.07);
+}
+
+.festival-editorial-img-wrapper img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.festival-editorial-img-wrapper:hover img {
+    transform: scale(1.04);
+}
+
+.festival-editorial-date-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: var(--imperial-red);
+    color: var(--imperial-gold);
+    padding: 6px 16px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    border: 1px solid var(--imperial-gold);
+}
+
+.bg-light.border-start {
+    background-color: rgba(184, 150, 46, 0.04) !important;
+    border-color: var(--imperial-red) !important;
+}
+
+/* UTILITY CODES FOR EXTRA IMAGES */
+.fixed-gallery-img { width: 100%; height: 250px; object-fit: cover; border-radius: 8px; }
+.editorial-hero-img { width: 100%; height: 240px; object-fit: cover; border-radius: 8px; margin: 20px 0; }
+@media (min-width: 768px) { .editorial-hero-img { height: 420px; } }
+.style-cat-card { height: 180px !important; }

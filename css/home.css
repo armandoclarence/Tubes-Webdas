@@ -1,0 +1,100 @@
+/* ==========================================================================
+   CINEMATIC PARALLAX-ZOOM HERO BACKGROUND ENGINE (RESTORED FIXED)
+   ========================================================================== */
+.carousel-custom-item {
+    position: relative;
+    height: 70vh;
+    min-height: 400px;
+    background-color: #000000;
+    overflow: hidden;
+    /* Membuat ruang isolasi rendering baru untuk anak-anaknya */
+    isolation: isolate; 
+}
+
+/* GRADIENT OVERLAY: Lapisan hitam pelindung kontras teks */
+.carousel-custom-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.parallax-zoom-frame {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.parallax-zoom-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.75;
+    /* Mengembalikan scale awal mikro agar memiliki ruang gerak zoom-in */
+    transform: scale(1.02) translateY(0);
+    /* AKSELERASI INDEPENDEN PARALLAX GAMBAR */
+    will-change: transform;
+    transition: transform 0.5s ease-out;
+}
+
+/* PEMICU ANIMASI PARALLAX SAAT CAROUSEL AKTIF (KEMBALI BERGERAK) */
+.carousel-item.active .parallax-zoom-frame img {
+    animation: cinematicParallaxMulus 6.5s ease-out forwards !important;
+}
+
+@keyframes cinematicParallaxMulus {
+    0% { 
+        transform: scale(1.02) translateY(0); 
+    }
+    100% { 
+        /* Bergerak membesar dan bergeser naik sedikit secara sinematik */
+        transform: scale(1.12) translateY(-15px); 
+    }
+}
+
+/* ==========================================================================
+   SMOOTH CAROUSEL CAPTION ENGINE (TEXT FIXED)
+   ========================================================================== */
+.carousel-custom-item .carousel-caption {
+    /* Dipaksa berada di lapisan z-index paling atas secara mutlak */
+    z-index: 3 !important; 
+}
+
+.carousel-caption-card {
+    background: transparent !important;
+    border-left: 4px solid var(--imperial-gold);
+    border-radius: 0;
+    padding: 5px 0 5px 25px;
+    margin-bottom: 5%;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+    
+    /* Proteksi pergerakan teks tanpa mengganggu sasis background */
+    will-change: transform, opacity;
+}
+
+/* ANIMASI MELUNCUR TEKS DI ATAS LAYER PARALLAX */
+.carousel-item.active .carousel-caption-card {
+    animation: captionSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+@keyframes captionSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (min-width: 768px) {
+    .carousel-custom-item { height: 550px; }
+    .carousel-caption-card { padding: 15px 0 15px 35px; }
+}
