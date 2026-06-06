@@ -1,0 +1,633 @@
+/* ==========================================================================
+   ENHANCEMENTS.CSS — UI/UX UPGRADE LAYER
+   Missing utilities, polished components, ambient effects
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. MISSING BASE UTILITIES (referenced in templates but never defined)
+   -------------------------------------------------------------------------- */
+
+.responsive-fluid-img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.responsive-fluid-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+}
+
+.max-width-600 {
+    max-width: 600px;
+}
+
+/* --------------------------------------------------------------------------
+   2. HISTORY HEADER — used on every content page
+   -------------------------------------------------------------------------- */
+
+.history-header {
+    text-align: center;
+    padding: 10px 0 30px;
+    margin-bottom: 2rem;
+}
+
+.header-chinese {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    color: rgba(163, 0, 0, 0.06);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    user-select: none;
+    margin-bottom: -10px;
+    font-family: 'Noto Serif SC', 'STSong', serif;
+}
+
+/* --------------------------------------------------------------------------
+   3. WELCOME CARDS (home page feature cards)
+   -------------------------------------------------------------------------- */
+
+.welcome-card {
+    border: 1px solid rgba(163, 0, 0, 0.1) !important;
+    border-radius: 14px !important;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.3s ease;
+
+    /* Staggered entrance animation driven by --card-index */
+    opacity: 0;
+    transform: translateY(24px);
+    animation: cardEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--card-index, 0) * 120ms + 200ms);
+}
+
+@keyframes cardEntrance {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(163, 0, 0, 0.12) !important;
+    border-color: rgba(163, 0, 0, 0.25) !important;
+}
+
+.welcome-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.welcome-card:hover .card-img-top {
+    transform: scale(1.06);
+}
+
+/* --------------------------------------------------------------------------
+   4. READING PROGRESS BAR
+   -------------------------------------------------------------------------- */
+
+#reading-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--imperial-gold) 0%, #FFA500 100%);
+    z-index: 9998;
+    transition: width 0.1s linear;
+    pointer-events: none;
+    border-radius: 0 2px 2px 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. SCROLL-TO-TOP BUTTON
+   -------------------------------------------------------------------------- */
+
+#scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    background-color: var(--imperial-red);
+    color: var(--imperial-gold);
+    border: 2px solid var(--imperial-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1040;
+    font-size: 20px;
+    box-shadow: 0 4px 16px rgba(163, 0, 0, 0.35);
+    opacity: 0;
+    transform: translateY(16px) scale(0.85);
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease,
+                box-shadow 0.25s ease;
+    pointer-events: none;
+}
+
+#scroll-to-top.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+#scroll-to-top:hover {
+    background-color: var(--dark-burgundy);
+    box-shadow: 0 8px 28px rgba(163, 0, 0, 0.45);
+    transform: translateY(-2px) scale(1.05);
+}
+
+#scroll-to-top:active {
+    transform: scale(0.95);
+}
+
+/* --------------------------------------------------------------------------
+   6. DYNASTY TIMELINE EXTRAS
+   -------------------------------------------------------------------------- */
+
+.dynasty-main-body .tagline {
+    display: block;
+    color: var(--gold);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--imperial-gold);
+    padding-left: 10px;
+}
+
+.facts-matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.fact-cell-item {
+    background: rgba(163, 0, 0, 0.03);
+    border: 1px solid rgba(163, 0, 0, 0.08);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.fact-cell-item .label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--fade);
+    font-weight: 600;
+}
+
+.fact-cell-item .value {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.achievements-list {
+    padding-left: 20px;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.achievements-list li {
+    font-size: 14px;
+    line-height: 1.6;
+    position: relative;
+}
+
+.achievements-list li::marker {
+    color: var(--imperial-red);
+}
+
+.dynasty-editorial-quote {
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--imperial-gold);
+    background: linear-gradient(135deg, rgba(184, 150, 46, 0.05), rgba(163, 0, 0, 0.03));
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--fade);
+    line-height: 1.7;
+}
+
+.badge-tag {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gold-light);
+    background: rgba(255, 255, 255, 0.08);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(232, 201, 106, 0.3);
+}
+
+.dynasty-main-body .name,
+.dynasty-aside-brand .name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--silk);
+    letter-spacing: 0.04em;
+}
+
+.dynasty-aside-brand .years {
+    font-size: 11.5px;
+    color: rgba(245, 239, 227, 0.55);
+    letter-spacing: 0.03em;
+}
+
+/* --------------------------------------------------------------------------
+   7. TIMELINE TRACK LINE
+   -------------------------------------------------------------------------- */
+
+.timeline-wrapper {
+    position: relative;
+}
+
+.timeline-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, 
+        transparent 0%, 
+        rgba(163, 0, 0, 0.15) 5%,
+        rgba(163, 0, 0, 0.15) 95%,
+        transparent 100%
+    );
+    border-radius: 1px;
+}
+
+.timeline-block::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 36px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--imperial-red);
+    border: 3px solid var(--imperial-gold);
+    box-shadow: 0 0 0 4px rgba(163, 0, 0, 0.1);
+    z-index: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-block.scroll-visible::before {
+    animation: dotPulse 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+@keyframes dotPulse {
+    from { transform: scale(0); box-shadow: 0 0 0 8px rgba(163, 0, 0, 0.2); }
+    to   { transform: scale(1); box-shadow: 0 0 0 4px rgba(163, 0, 0, 0.1); }
+}
+
+/* --------------------------------------------------------------------------
+   8. HOME PAGE — IMPERIAL STATS SECTION
+   -------------------------------------------------------------------------- */
+
+.imperial-stats-section {
+    background: linear-gradient(135deg, var(--dark-burgundy) 0%, #2c0808 100%);
+    padding: 70px 0;
+    margin-top: 60px;
+    border-top: 3px solid var(--imperial-gold);
+    border-bottom: 3px solid var(--imperial-gold);
+    position: relative;
+    overflow: hidden;
+}
+
+.imperial-stats-section::before {
+    content: '故宫';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.025);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    font-family: 'Noto Serif SC', serif;
+}
+
+.stat-card-imperial {
+    text-align: center;
+    padding: 30px 20px;
+    border: 1px solid rgba(255, 223, 109, 0.15);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(4px);
+    transition: transform 0.35s ease, background 0.3s ease, border-color 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: statEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--stat-index, 0) * 100ms + 300ms);
+}
+
+@keyframes statEntrance {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.stat-card-imperial:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 223, 109, 0.35);
+}
+
+.stat-number {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    color: var(--imperial-gold);
+    line-height: 1.1;
+    font-family: 'Kaushan Script', cursive;
+    display: block;
+}
+
+.stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 600;
+    margin-top: 8px;
+    display: block;
+}
+
+.stat-sub {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: 4px;
+    display: block;
+}
+
+/* --------------------------------------------------------------------------
+   9. BREADCRUMB NAVIGATION
+   -------------------------------------------------------------------------- */
+
+.imperial-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--fade);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.imperial-breadcrumb a {
+    color: var(--imperial-red);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.imperial-breadcrumb a:hover {
+    color: var(--dark-burgundy);
+}
+
+.imperial-breadcrumb .separator {
+    color: rgba(163, 0, 0, 0.3);
+    font-size: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   10. PAGE TRANSITION FADE
+   -------------------------------------------------------------------------- */
+
+#content-view {
+    transition: opacity 0.2s ease;
+}
+
+#content-view.page-fading {
+    opacity: 0;
+}
+
+/* --------------------------------------------------------------------------
+   11. TOAST NOTIFICATION (for copy/share interactions)
+   -------------------------------------------------------------------------- */
+
+.imperial-toast {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    background: var(--dark-burgundy);
+    color: var(--imperial-gold);
+    border: 1px solid rgba(255, 223, 109, 0.4);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 500;
+    z-index: 1060;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+.imperial-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   12. SECTION DIVIDERS (ambient between major sections)
+   -------------------------------------------------------------------------- */
+
+.section-divider-imperial {
+    text-align: center;
+    padding: 40px 0;
+    position: relative;
+}
+
+.section-divider-imperial::before,
+.section-divider-imperial::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: calc(50% - 60px);
+    height: 1px;
+    background: linear-gradient(to center, transparent, rgba(163, 0, 0, 0.2));
+}
+
+.section-divider-imperial::before { left: 0; background: linear-gradient(to right, transparent, rgba(163, 0, 0, 0.2)); }
+.section-divider-imperial::after  { right: 0; background: linear-gradient(to left, transparent, rgba(163, 0, 0, 0.2)); }
+
+.section-divider-imperial span {
+    display: inline-block;
+    font-size: 1.6rem;
+    color: var(--imperial-red);
+    opacity: 0.3;
+    padding: 0 10px;
+}
+
+/* --------------------------------------------------------------------------
+   13. FESTIVAL EDITORIAL ROW — UNIFORM PADDING FIX
+   -------------------------------------------------------------------------- */
+
+.festival-editorial-row:last-child {
+    border-bottom: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   14. ARCHITECTURE PAGE — SECTION HEADERS
+   -------------------------------------------------------------------------- */
+
+.architecture-section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(163, 0, 0, 0.06);
+    border: 1px solid rgba(163, 0, 0, 0.12);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--imperial-red);
+    margin-bottom: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   15. SEARCH HIGHLIGHT (for potential future use)
+   -------------------------------------------------------------------------- */
+
+.highlight-term {
+    background: rgba(255, 223, 109, 0.35);
+    border-bottom: 2px solid var(--imperial-gold);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   16. PULL QUOTE / EDITORIAL ACCENT BLOCKS
+   -------------------------------------------------------------------------- */
+
+.pull-quote-imperial {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--imperial-red);
+    font-family: 'Kaushan Script', cursive;
+    text-align: center;
+    padding: 30px 40px;
+    border-top: 2px solid var(--imperial-gold);
+    border-bottom: 2px solid var(--imperial-gold);
+    margin: 40px 0;
+    background: linear-gradient(135deg, rgba(163, 0, 0, 0.02), rgba(184, 150, 46, 0.03));
+    border-radius: 4px;
+    line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   17. PAGE HERO MINI STAT RIBBON (below carousel on home)
+   -------------------------------------------------------------------------- */
+
+.hero-stat-ribbon {
+    background: var(--dark-burgundy);
+    border-bottom: 2px solid rgba(255, 223, 109, 0.2);
+    padding: 12px 0;
+}
+
+.hero-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    padding: 4px 0;
+}
+
+.hero-stat-item .stat-icon {
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.hero-stat-item .stat-text {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.4;
+}
+
+.hero-stat-item .stat-text strong {
+    color: var(--imperial-gold);
+    display: block;
+    font-size: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   18. MOBILE RESPONSIVENESS PATCHES
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 767.98px) {
+    .timeline-block {
+        padding-left: 36px !important;
+    }
+
+    .timeline-wrapper::before {
+        left: 8px;
+    }
+
+    .timeline-block::before {
+        left: 0;
+        top: 30px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .facts-matrix-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .imperial-stats-section {
+        padding: 50px 0;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .header-chinese {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+    }
+
+    #scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 42px;
+        height: 42px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   19. PRINT CLEANUP (basic)
+   -------------------------------------------------------------------------- */
+
+@media print {
+    #scroll-to-top,
+    #reading-progress-bar,
+    .history-sticky-tabs,
+    .navbar-custom { display: none !important; }
+    body { padding-top: 0 !important; }
+}

@@ -17,9 +17,25 @@ function injectGlobalLayoutComponents() {
     }
     if (footerPlaceholder) {
         footerPlaceholder.innerHTML = `
-        <footer class="text-center py-4 text-white mt-auto footer-custom">
-            <div class="container-fluid px-4">
-                <p class="mb-0 small">© 2026 Forbidden City Cultural Exploration Space. All Rights Reserved.</p>
+        <footer class="text-center py-5 text-white mt-auto footer-custom">
+            <div class="container px-4">
+                <div class="row g-3 justify-content-center mb-4">
+                    <div class="col-auto">
+                        <span class="font-script fs-4 text-gold">紫禁城</span>
+                        <span class="text-white opacity-50 ms-2 small">The Forbidden City</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+                    <a href="${basePrefix}/" class="text-white opacity-50 small text-decoration-none hover-gold">Home</a>
+                    <a href="${basePrefix}/architecture" class="text-white opacity-50 small text-decoration-none">Architecture</a>
+                    <a href="${basePrefix}/history" class="text-white opacity-50 small text-decoration-none">History</a>
+                    <a href="${basePrefix}/festival" class="text-white opacity-50 small text-decoration-none">Festivals</a>
+                    <a href="${basePrefix}/culture" class="text-white opacity-50 small text-decoration-none">Scholarly Arts</a>
+                    <a href="${basePrefix}/life" class="text-white opacity-50 small text-decoration-none">Court Life</a>
+                </div>
+                <div class="divider-bar mx-auto mb-4"></div>
+                <p class="mb-0 small opacity-25">© 2026 Forbidden City Cultural Exploration Space. All Rights Reserved.</p>
+                <p class="mb-0 mt-1 small opacity-15" style="font-size:10px;">UNESCO World Heritage Site · Est. 1406 CE · 故宫博物院</p>
             </div>
         </footer>`;
     }
@@ -64,20 +80,24 @@ async function handleLocationChange() {
         }
     }
 
-    // Selalu injeksi komponen baru sebelum inisialisasi observer & menutup loading screen
+    // Inject layout components, init animations & enhancements
     injectGlobalLayoutComponents();
     initTimelineScrollObserver();
     initTimelineScrollSpy();
-    initCarouselAutoPlay(); 
+    initCarouselAutoPlay();
+
+    // NEW: run enhancement layer after every page load
+    if (typeof initAllEnhancements === 'function') {
+        initAllEnhancements();
+    }
 
     if (loadingScreen) {
         loadingScreen.classList.add("fade-hide");
     }
 
-    // PERBAIKAN: Proteksi querySelector dari hash ilegal saat deep linking
+    // Smooth scroll to hash target
     if (window.location.hash) {
         const targetId = window.location.hash;
-        // Abaikan jika hanya berupa '#' atau '#/' biasa
         if (targetId !== '#' && !targetId.startsWith('#/')) {
             setTimeout(() => {
                 try {
@@ -88,7 +108,7 @@ async function handleLocationChange() {
                         window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                     }
                 } catch (e) {
-                    console.warn("Gagal mengeksekusi smooth scroll, selector hash tidak valid:", targetId);
+                    console.warn("Smooth scroll failed:", targetId);
                 }
             }, 120);
         }
@@ -108,9 +128,7 @@ window.addEventListener("DOMContentLoaded", () => {
             
             if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
             
-            // PERBAIKAN: Antisipasi crash querySelector untuk link hash
             if (href.startsWith('#')) {
-                // Jika hanya '#' atau '#/' lewatkan agar tidak crash
                 if (href === '#' || href.startsWith('#/')) return; 
 
                 e.preventDefault();
@@ -118,26 +136,22 @@ window.addEventListener("DOMContentLoaded", () => {
                     const targetElement = document.querySelector(href);
                     if (targetElement) {
                         window.history.pushState(null, null, href);
-                        
                         const combinedNavbarHeights = 80;
                         const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - combinedNavbarHeights;
                         window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                     }
                 } catch (selectorError) {
-                    console.warn("Selector jangkar tidak valid:", href);
+                    console.warn("Selector tidak valid:", href);
                 }
                 return;
             }
 
             e.preventDefault();
 
-            // AMANKAN KONDISI MOBILE SEBELUM NAVBAR DIHANCURKAN OLEH INJECTOR
             const navbarCollapseButton = document.querySelector('.navbar-collapse.show');
             const activeDropdown = document.querySelector('.dropdown-menu.show');
 
-            if (activeDropdown) {
-                activeDropdown.classList.remove('show');
-            }
+            if (activeDropdown) activeDropdown.classList.remove('show');
 
             if (navbarCollapseButton) {
                 if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
@@ -152,7 +166,6 @@ window.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            // Eksekusi pemindahan state URL
             if (basePrefix && href.startsWith(basePrefix)) {
                 href = href.slice(basePrefix.length);
             }
