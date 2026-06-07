@@ -94,6 +94,7 @@ async function handleLocationChange() {
     initCarouselAutoPlay();
     initImageZoom();
     wrapImages();
+    initForm();
 
     // NEW: run enhancement layer after every page load
     if (typeof initAllEnhancements === 'function') {
@@ -220,6 +221,32 @@ function wrapImages() {
             // Masukkan wrapper ke dalam DOM, lalu pindahkan gambar ke dalam wrapper
             img.parentNode.insertBefore(wrapper, img);
             wrapper.appendChild(img);
+        }
+    });
+}
+
+function initForm(){
+    document.addEventListener('submit', function(e) {
+        if (e.target && e.target.id === 'visitorForm') {
+            e.preventDefault();
+
+            const visitorData = {
+                id: Date.now(),
+                name: document.getElementById('visitorName').value,
+                origin: document.getElementById('visitorOrigin').value,
+                favoriteArea: document.getElementById('favoriteArea').value,
+                message: document.getElementById('visitorMessage').value,
+                timestamp: new Date().toLocaleString()
+            };
+
+            let guestArchive = JSON.parse(localStorage.getItem('imperialGuests')) || [];
+
+            guestArchive.push(visitorData);
+
+            localStorage.setItem('imperialGuests', JSON.stringify(guestArchive));
+
+            alert('Terima kasih! Pesan Anda telah dicatat dalam arsip istana.');
+            e.target.reset();
         }
     });
 }

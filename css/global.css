@@ -115,11 +115,6 @@ body {
 /* ==========================================================================
    SMART TEXT CONTRAST (ACCESSIBILITY OVERRIDES)
    ========================================================================== */
-
-.text-muted {
-    color: rgba(30, 20, 15, 0.65) !important; 
-}
-
 .bg-dark .text-muted,
 .dynasty-aside-brand.bg-dark .text-muted,
 .dynasty-aside-brand.bg-danger .text-muted,
@@ -200,4 +195,25 @@ body.modal-open {
 .modal-open .is-fixed, 
 .modal-open .sticky-top {
     padding-right: 0 !important;
+}
+
+.text-effect-gold {
+    background: linear-gradient(45deg, #F1C40F, #FFF8DC, #D4AF37, #F1C40F);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 2px 2px 8px rgba(241, 196, 15, 0.2);
+    animation: shineGold 3s linear infinite;
+    display: inline-block;
+}
+
+@keyframes shineGold {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.bg-imperial-dark {
+    background-color: #4A0E17 !important; /* Warna merah gelap keraton/istana */
 }

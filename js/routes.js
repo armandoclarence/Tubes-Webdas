@@ -156,6 +156,53 @@ function renderHomeDashboard() {
                 </div>
             </div>
         </div>
+        <div class="container my-5 py-4 animate-route-in">
+            <div class="card shadow-lg bg-imperial-dark text-light" style="border: 2px solid var(--imperial-gold);">
+                
+                <div class="card-header text-center py-4" style="border-bottom: 1px solid rgba(241, 196, 15, 0.3);">
+                    <h2 class="fw-bold font-script text-effect-gold mb-0 fs-1">The Imperial Guestbook</h2>
+                    <p class="small text-muted mt-2 mb-0">Record your passage through the Forbidden City</p>
+                </div>
+                
+                <div class="card-body p-4 p-md-5">
+                    <form action="#" method="POST" id="visitorForm">
+                        <div class="row g-4">
+                            
+                            <div class="col-md-6">
+                                <label for="visitorName" class="form-label text-warning small fw-bold">Honored Name</label>
+                                <input type="text" class="form-control bg-dark text-light border-secondary" id="visitorName" placeholder="Enter your name" required>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="visitorOrigin" class="form-label text-warning small fw-bold">Province / Country of Origin</label>
+                                <input type="text" class="form-control bg-dark text-light border-secondary" id="visitorOrigin" placeholder="Where are you traveling from?" required>
+                            </div>
+                            
+                            <div class="col-12">
+                                <label for="favoriteArea" class="form-label text-warning small fw-bold">Favorite Area of the Palace</label>
+                                <select class="form-select bg-dark text-light border-secondary" id="favoriteArea" required>
+                                    <option value="" selected disabled>Select your favorite...</option>
+                                    <option value="architecture">Architecture & Engineering</option>
+                                    <option value="history">Palace History</option>
+                                    <option value="festival">Grand Festivals</option>
+                                    <option value="culture">Scholarly Arts</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-12">
+                                <label for="visitorMessage" class="form-label text-warning small fw-bold">Your Message (Decree)</label>
+                                <textarea class="form-control bg-dark text-light border-secondary" id="visitorMessage" rows="3" placeholder="Leave your thoughts on the cultural archive..." required></textarea>
+                            </div>
+                            
+                            <div class="col-12 text-center mt-4">
+                                <button type="submit" class="btn btn-warning fw-bold px-5 py-2 text-dark">Submit Scroll</button>
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
     `;
 }
