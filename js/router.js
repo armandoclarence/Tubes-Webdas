@@ -67,8 +67,15 @@ async function handleLocationChange() {
         contentView.innerHTML = renderHomeDashboard();
     } else {
         try {
-            const response = await fetch(`${basePrefix}/content/${route.template}`);
-            if (!response.ok) throw new Error("Network fragment error");
+            // Ganti baris fetch Anda dengan ini untuk debugging
+            const url = `${basePrefix}/content/${route.template}`;
+            console.log("Mencoba mengambil file dari:", url); // Cek ini di Console DevTools
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                console.error("Gagal! Status:", response.status, "Path:", url);
+            }
             let rawHtml = await response.text();
             
             const imgRegex = /<img\s+([^>]*?)src=["'](?!http|\/)([^"']+)["']/g;
@@ -85,6 +92,8 @@ async function handleLocationChange() {
     initTimelineScrollObserver();
     initTimelineScrollSpy();
     initCarouselAutoPlay();
+    initImageZoom();
+    wrapImages();
 
     // NEW: run enhancement layer after every page load
     if (typeof initAllEnhancements === 'function') {
@@ -119,7 +128,6 @@ async function handleLocationChange() {
 window.addEventListener("popstate", handleLocationChange);
 window.addEventListener("DOMContentLoaded", () => {
     handleLocationChange();
-
     document.body.addEventListener("click", (e) => {
         const targetLink = e.target.closest("a");
         if (targetLink && targetLink.getAttribute("href")) {
@@ -176,3 +184,42 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// Gunakan instance modal yang bersih
+let zoomModal = null;
+
+function initImageZoom() {
+    // Bersihkan listener lama untuk menghindari duplikasi
+    document.removeEventListener('click', zoomHandler);
+    document.addEventListener('click', zoomHandler);
+}
+
+function zoomHandler(e) {
+    if (e.target.classList.contains('zoomable')) {
+        const zoomedImg = document.getElementById('zoomedImg');
+        zoomedImg.src = e.target.src;
+        
+        // Inisialisasi modal dengan cara yang aman
+        if (!zoomModal) {
+            zoomModal = new bootstrap.Modal(document.getElementById('imageZoomModal'));
+        }
+        zoomModal.show();
+    }
+}
+
+function wrapImages() {
+    // Cari semua gambar yang memiliki class 'zoomable'
+    const images = document.querySelectorAll('img.zoomable');
+    
+    images.forEach(img => {
+        // Cek apakah gambar sudah dibungkus agar tidak dibungkus berkali-kali
+        if (!img.parentElement.classList.contains('zoom-wrapper')) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'zoom-wrapper';
+            
+            // Masukkan wrapper ke dalam DOM, lalu pindahkan gambar ke dalam wrapper
+            img.parentNode.insertBefore(wrapper, img);
+            wrapper.appendChild(img);
+        }
+    });
+}

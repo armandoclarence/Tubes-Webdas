@@ -8,30 +8,23 @@
     font-style: normal;
 }
 
+/* ==========================================================================
+   THE FORBIDDEN CITY IMPERIAL PALETTE (ROOT VARIABLES)
+   ========================================================================== */
 :root {
-    --imperial-red: #A30000;
-    --dark-burgundy: #4A0000;
-    --soft-white: #FDFBF7;
-    --imperial-gold: #FFDF6D;
-    --charcoal: #2B2B2B;
-    
-    /* Integrated Dynasty Context Palette Assets */
-    --ink: #1a0a00;
-    --paper: #f5efe3;
-    --red: #c0392b;
-    --gold: #b8962e;
-    --gold-light: #e8c96a;
-    --silk: #d4a96a;
-    --fade: #8b7355;
-    --border: #c9a96e;
+    --imperial-red: #C1121F;      /* The iconic bright vermilion of the palace walls */
+    --dark-burgundy: #4A0E17;     /* Deep shadow red used for wooden pillars/footer */
+    --imperial-gold: #F1C40F;     /* The yellow glazed roof tiles */
+    --gold-accent: #D4AF37;       /* A softer metallic gold for text/hovers */
+    --jade-green: #2A9D8F;        /* Accent color for subtle details */
+    --silk-paper: #FDFBF7;        /* Warm off-white for reading backgrounds */
+    --ink-black: #1A1A1A;         /* Calligraphy ink black for text */
 }
 
+/* Make sure the main body uses the warm silk paper background */
 body {
-    background-color: var(--soft-white);
-    color: var(--charcoal);
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    overflow-x: hidden;
-    padding-top: 65px; /* Kompensasi agar konten tidak tertutup fixed navbar */
+    background-color: var(--silk-paper);
+    color: var(--ink-black);
 }
 
 .font-script { font-family: 'Kaushan Script', cursive, sans-serif !important; }
@@ -77,9 +70,25 @@ body {
     }
 }
 
-.footer-custom { 
-    background-color: var(--dark-burgundy); 
-    border-top: 3px solid var(--imperial-gold); 
+.footer-custom {
+    background-color: var(--dark-burgundy) !important; /* Unified Color */
+    border-top: 4px solid var(--imperial-gold);
+    color: rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.25);
+    position: relative;
+    z-index: 10;
+}
+
+.footer-custom p {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: 1px;
+}
+
+.footer-custom .footer-brand-text {
+    font-family: 'Kaushan Script', cursive, sans-serif;
+    color: var(--imperial-gold);
+    font-size: 1.1rem;
+    margin-right: 8px;
 }
 
 /* ==========================================================================
@@ -101,4 +110,94 @@ body {
     opacity: 0;
     pointer-events: none;
     display: none !important; /* Memaksa elemen keluar dari susunan rendering UI */
+}
+
+/* ==========================================================================
+   SMART TEXT CONTRAST (ACCESSIBILITY OVERRIDES)
+   ========================================================================== */
+
+.text-muted {
+    color: rgba(30, 20, 15, 0.65) !important; 
+}
+
+.bg-dark .text-muted,
+.dynasty-aside-brand.bg-dark .text-muted,
+.dynasty-aside-brand.bg-danger .text-muted,
+.footer-custom .text-muted,
+.navbar-custom .text-muted {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+body {
+    color: #2c2520;
+}
+
+.text-gold, 
+.text-warning {
+    color: var(--imperial-gold, #f1c40f) !important;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.3); /* Subtle shadow lifts it off the background */
+}
+
+.card-img-custom {
+    width: 100%;
+    height: 250px; /* Sedikit lebih tinggi dari 200px agar lebih lega */
+    object-fit: cover;
+    object-position: center; /* Memastikan fokus gambar selalu di tengah */
+    border-radius: 8px 8px 0 0;
+}
+
+/* Container untuk gambar */
+.zoom-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Ikon kaca pembesar (menggunakan karakter unicode) */
+.zoom-wrapper::after {
+    content: '✥'; 
+    font-size: 18px;
+    position: absolute;
+    top: 10px;
+    background: var(--imperial-gold); /* Menggunakan warna emas istana Anda */
+    color: var(--dark-burgundy);
+    right: 10px;
+    padding: 5px 8px;
+    border-radius: 50%;
+    pointer-events: none; /* Agar klik tetap tembus ke gambar di bawahnya */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Ikon muncul saat di-hover */
+.zoom-wrapper:hover::after {
+    opacity: 1;
+}
+
+.zoomable {
+    cursor: zoom-in;
+    transition: transform 0.2s;
+}
+
+.modal-backdrop {
+    z-index: 1050; /* Pastikan modal berada di atas segalanya */
+}
+
+/* Membuat area gelap modal terasa "bisa diklik" */
+.modal-backdrop.show {
+    cursor: zoom-out; 
+}
+
+/* Prevent page jump when zooming images (Bootstrap Modal Override) */
+body.modal-open {
+    overflow-y: scroll !important; /* Forces the scrollbar to stay visible */
+    padding-right: 0 !important;   /* Stops Bootstrap from adding fake padding */
+}
+
+/* Ensure the background overlay doesn't shift either */
+.modal-open .fixed-top, 
+.modal-open .fixed-bottom, 
+.modal-open .is-fixed, 
+.modal-open .sticky-top {
+    padding-right: 0 !important;
 }

@@ -125,7 +125,7 @@ function injectImperialStatsSection() {
     statsSection.className = 'imperial-stats-section mt-0';
     statsSection.innerHTML = `
         <div class="container position-relative">
-            <div class="history-header mb-5" style="color:#fff;">
+            <div class="page-header mb-5" style="color:#fff;">
                 <div style="font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:rgba(255,255,255,0.05);font-family:'Noto Serif SC',serif;line-height:1;margin-bottom:-8px;">数字奇迹</div>
                 <h2 class="fw-bold font-script text-warning fs-3 mt-1">The Palace in Numbers</h2>
                 <p class="small mt-2" style="color:rgba(255,255,255,0.45);max-width:500px;margin:0 auto;">Empirical wonders behind the world's largest surviving imperial palace complex.</p>

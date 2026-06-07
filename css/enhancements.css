@@ -27,25 +27,29 @@
     max-width: 600px;
 }
 
-/* --------------------------------------------------------------------------
-   2. HISTORY HEADER — used on every content page
-   -------------------------------------------------------------------------- */
-
-.history-header {
+/* ==========================================================================
+    2. UNIVERSAL PAGE HEADER COMPONENT (REFACTORED)
+   ========================================================================== */
+.page-header {
     text-align: center;
-    padding: 10px 0 30px;
-    margin-bottom: 2rem;
+    position: relative;
+    /* keep any of your existing padding/margins here */
 }
 
-.header-chinese {
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 900;
-    color: rgba(163, 0, 0, 0.06);
-    letter-spacing: 0.05em;
-    line-height: 1;
-    user-select: none;
-    margin-bottom: -10px;
-    font-family: 'Noto Serif SC', 'STSong', serif;
+/* If you have specific rules for the chinese text inside it, keep them general too */
+.page-header .header-chinese {
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    color: rgba(0, 0, 0, 0.4); /* Or whatever your existing style was */
+    font-weight: bold;
+}
+
+.page-header .divider-bar {
+    width: 60px;
+    height: 3px;
+    background-color: var(--imperial-gold, #f1c40f);
+    margin: 15px auto 0;
+    border-radius: 2px;
 }
 
 /* --------------------------------------------------------------------------
