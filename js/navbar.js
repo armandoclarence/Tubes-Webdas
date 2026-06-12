@@ -35,18 +35,10 @@ function getNavbarTemplate(currentRoute, basePrefix) {
                     </li>
                     
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle ${currentRoute === '/history' ? 'active' : ''}" 
-                            href="#" id="historyNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link ${currentRoute === '/history' ? 'active' : ''}" 
+                            href="${basePrefix}/history">
                             <span class="d-lg-none d-xl-inline me-1 small opacity-75">历史</span> History
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-custom shadow-lg" aria-labelledby="historyNavbarDropdown">
-                            <li><a class="dropdown-item fw-bold text-gold" href="${basePrefix}/history">📜 完整时间轴 Full Timeline</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item sub-anchor-link" href="${basePrefix}/history#han">汉 汉朝 Han Dynasty</a></li>
-                            <li><a class="dropdown-item sub-anchor-link" href="${basePrefix}/history#ming">明 明朝 Ming Dynasty</a></li>
-                            <li><a class="dropdown-item sub-anchor-link" href="${basePrefix}/history#qing">清 清朝 Qing Era</a></li>
-                            <li><a class="dropdown-item sub-anchor-link" href="${basePrefix}/history#modern">现 现代 Modern Era</a></li>
-                        </ul>
                     </li>
 
                     <li class="nav-item dropdown">
