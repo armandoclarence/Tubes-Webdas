@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Historical China</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #fcfbf7; 
+        color: #333;
+        padding: 50px 20px;
+    }
+
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .faq-title {
+        font-family: 'Cinzel', serif;
+        color: #8B1E22; 
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .faq-subtitle {
+        text-align: center;
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+
+    .faq-line {
+        width: 60px;
+        height: 3px;
+        background-color: #D4AF37; 
+        margin: 0 auto 30px auto;
+    }
+
+    .faq-item {
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+    }
+
+    .faq-question {
+        width: 100%;
+        background: none;
+        border: none;
+        outline: none;
+        text-align: left;
+        padding: 15px 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #222;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: color 0.3s ease;
+    }
+
+    .faq-question:hover {
+        color: #8B1E22;
+    }
+
+    .arrow-icon {
+        font-style: normal;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+        color: #D4AF37;
+    }
+
+    .faq-item.active .arrow-icon {
+        transform: rotate(180deg);
+    }
+
+    .faq-item.active .faq-question {
+        color: #8B1E22;
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out, padding 0.3s ease;
+        padding: 0 10px;
+    }
+
+    .faq-answer p {
+        color: #555;
+        line-height: 1.6;
+        font-size: 0.95rem;
+        padding-bottom: 15px;
+    }
+
+    </style>
+</head>
+<body>
+
+    <div class="faq-container">
+        <h2 class="faq-title">FAQ</h2>
+        <p class="faq-subtitle">Enjoy your vacation</p>
+        <div class="faq-line"></div>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>Which Chinese dynasties are recommended for beginners to learn about?</span>
+                <i class="arrow-icon">&#9662;</i>
+            </button>
+            <div class="faq-answer">
+                <p>For beginners, it is highly recommended to study<strong>the Qin Dynasty</strong> (the first unification of China and the origin of the Great Wall) and <strong>The Tang Dynasty</strong> (the golden age of culture, poetry, and the Silk Road). If you are interested in magnificent palaces like the Forbidden City, consider learning about the <strong>Ming and Qing Dynasties</strong>.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>When is the best time to visit The Forbidden City?</span>
+                <i class="arrow-icon">&#9662;</i>
+            </button>
+            <div class="faq-answer">
+                <p>The best time to visit is during <strong>autumn (September - November)</strong>. The weather is very cool, the sky is clear, and the golden leaves complement the red walls and yellow roofs of the imperial palace beautifully.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>What are some traditional Chinese dishes with historical significance?</span>
+                <i class="arrow-icon">&#9662;</i>
+            </button>
+            <div class="faq-answer">
+                <p>You must try <strong>Peking Duck</strong>, which was once a exclusive dish for emperors, and <strong>Dim Sum</strong>, which has a close connection to the tea culture (Yum Cha) of ancient Silk Road merchants.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>Which other historical cities in China are worth visiting besides Beijing?</span>
+                <i class="arrow-icon">&#9662;</i>
+            </button>
+            <div class="faq-answer">
+                <p><strong>Xi'an</strong> is a top choice after Beijing. This city is the starting point of the Silk Road and the location where <em>Terracotta Army</em> (Terracotta Warriors) of Emperor Qin Shi Huang was buried.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const faqQuestions = document.querySelector(".faq-question");
+
+    faqQuestions.forEach(question => {
+        question.addEventListener("click", function() {
+            const item = this.parentElement;
+            const answer = this.nextElementSibling;
+
+            if (item.classList.contains("active")) {
+                item.classList.remove("active");
+                answer.style.maxHeight = null;
+            } else {
+                // nutup si faq
+                document.querySelectorAll(".faq-item").forEach(el => {
+                    el.classList.remove("active");
+                    el.querySelector(".faq-answer").style.maxHeight = null;
+                });
+
+                // buka faq
+                item.classList.add("active");
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            }
+        });
+    });
+});
+    </script>
+</body>
+</html>

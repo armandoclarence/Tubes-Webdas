@@ -4,7 +4,8 @@ const routes = {
     "/history": { title: "紫禁城 | History", template: "history.html" },
     "/architecture": { title: "紫禁城 | Architecture", template: "architecture.html" },
     "/festival": { title: "紫禁城 | Festival", template: "festival.html" },
-    "/life": { title: "紫禁城 | Court Life", template: "life.html" }
+    "/life": { title: "紫禁城 | Court Life", template: "life.html" },
+    "/faq": { title: "紫禁城 | Frequently Asked Questions", template: "faq.html" }
 };
 
 // Automatically evaluates context directory prefixes (GitHub Repositories vs Localhost)
@@ -52,6 +53,9 @@ function injectGlobalLayoutComponents() {
                         </li>
                         <li class="nav-item mx-1">
                             <a class="nav-link ${currentRoute === '/life' ? 'active' : ''}" href="${basePrefix}/life">Court Life</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/faq' ? 'active' : ''}" href="${basePrefix}/faq">FAQ</a>
                         </li>
                     </ul>
                 </div>
