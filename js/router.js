@@ -37,6 +37,9 @@ function injectGlobalLayoutComponents() {
                     <a href="${basePrefix}/festival" class="text-white opacity-50 small text-decoration-none">Festivals</a>
                     <a href="${basePrefix}/culture" class="text-white opacity-50 small text-decoration-none">Scholarly Arts</a>
                     <a href="${basePrefix}/life" class="text-white opacity-50 small text-decoration-none">Court Life</a>
+                    <a href="${basePrefix}/culinary" class="text-white opacity-50 small text-decoration-none">Culinary</a>
+                    <a href="${basePrefix}/museum" class="text-white opacity-50 small text-decoration-none">Museum</a>
+                    <a href="${basePrefix}/faq" class="text-white opacity-50 small text-decoration-none">FAQ</a>
                 </div>
                 <div class="divider-bar mx-auto mb-4"></div>
                 <p class="mb-0 small opacity-25">© 2026 Forbidden City Cultural Exploration Space. All Rights Reserved.</p>
