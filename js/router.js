@@ -1,3 +1,13 @@
+// Automatically evaluates context directory prefixes (GitHub Repositories vs Localhost)
+function getBaseBasenamePrefix() {
+    const path = window.location.pathname;
+    if (path.includes('/Tubes-Webdas')) {
+        return '/Tubes-Webdas';
+    }
+    return '';
+}
+
+// Pure JS App Shell Layout Dynamic Injection Configuration Engine
 function injectGlobalLayoutComponents() {
     const navbarPlaceholder = document.getElementById("navbar-placeholder");
     const footerPlaceholder = document.getElementById("footer-placeholder");
@@ -10,7 +20,37 @@ function injectGlobalLayoutComponents() {
     if (!currentRoute) currentRoute = "/";
 
     if (navbarPlaceholder) {
-        navbarPlaceholder.innerHTML = getNavbarTemplate(currentRoute, basePrefix);
+        navbarPlaceholder.innerHTML = `
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top shadow">
+            <div class="container">
+                <a class="navbar-brand fw-bold fs-4" href="${basePrefix}/">🏯 紫禁城 <span class="fs-6 fw-normal text-gold">The Forbidden City</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/' ? 'active' : ''}" href="${basePrefix}/">Home</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/history' ? 'active' : ''}" href="${basePrefix}/history">History</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/architecture' ? 'active' : ''}" href="${basePrefix}/architecture">Architecture</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/festival' ? 'active' : ''}" href="${basePrefix}/festival">Festival</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/life' ? 'active' : ''}" href="${basePrefix}/life">Court Life</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link ${currentRoute === '/faq' ? 'active' : ''}" href="${basePrefix}/faq">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>`;
     }
     if (footerPlaceholder) {
         footerPlaceholder.innerHTML = `

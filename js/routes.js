@@ -7,6 +7,7 @@ const routes = {
     "/life": { title: "故宫 | Court & Modern Life", template: "life.html" },
     "/culinary": { title: "故宫 | Imperial Culinary", template: "culinary.html" },
     "/museum": { title: "故宫 | Museum", template: "museum.html" },
+    "/faq": { title: "故宫 | FAQ", template: "faq.html" },
 };
 
 function getBaseBasenamePrefix() {
