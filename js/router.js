@@ -1,6 +1,3 @@
-// ==========================================================================
-// CORE LAYOUT INJECTION SCRIPT (ROUTER CORE ENGINE)
-// ==========================================================================
 function injectGlobalLayoutComponents() {
     const navbarPlaceholder = document.getElementById("navbar-placeholder");
     const footerPlaceholder = document.getElementById("footer-placeholder");
@@ -41,7 +38,6 @@ function injectGlobalLayoutComponents() {
     }
 }
 
-// MANAGEMENT SIKLUS UTAMA TRANSISI HALAMAN SPA (ID: LOADING-SCREEN FIXED)
 async function handleLocationChange() {
     const contentView = document.getElementById("content-view");
     const loadingScreen = document.getElementById("loading-screen");
@@ -67,9 +63,8 @@ async function handleLocationChange() {
         contentView.innerHTML = renderHomeDashboard();
     } else {
         try {
-            // Ganti baris fetch Anda dengan ini untuk debugging
             const url = `${basePrefix}/content/${route.template}`;
-            console.log("Mencoba mengambil file dari:", url); // Cek ini di Console DevTools
+            console.log("Mencoba mengambil file dari:", url);
 
             const response = await fetch(url);
 
@@ -87,7 +82,6 @@ async function handleLocationChange() {
         }
     }
 
-    // Inject layout components, init animations & enhancements
     injectGlobalLayoutComponents();
     initTimelineScrollObserver();
     initTimelineScrollSpy();
@@ -95,8 +89,8 @@ async function handleLocationChange() {
     initImageZoom();
     wrapImages();
     initForm();
+    window.scrollTo(0, 0);
 
-    // NEW: run enhancement layer after every page load
     if (typeof initAllEnhancements === 'function') {
         initAllEnhancements();
     }
@@ -105,7 +99,6 @@ async function handleLocationChange() {
         loadingScreen.classList.add("fade-hide");
     }
 
-    // Smooth scroll to hash target
     if (window.location.hash) {
         const targetId = window.location.hash;
         if (targetId !== '#' && !targetId.startsWith('#/')) {
@@ -125,7 +118,6 @@ async function handleLocationChange() {
     }
 }
 
-// INTERSEPTOR KLIK GLOBAL DAN SIKLUS EVENT BINDINGS
 window.addEventListener("popstate", handleLocationChange);
 window.addEventListener("DOMContentLoaded", () => {
     handleLocationChange();
@@ -186,11 +178,9 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Gunakan instance modal yang bersih
 let zoomModal = null;
 
 function initImageZoom() {
-    // Bersihkan listener lama untuk menghindari duplikasi
     document.removeEventListener('click', zoomHandler);
     document.addEventListener('click', zoomHandler);
 }
@@ -200,7 +190,6 @@ function zoomHandler(e) {
         const zoomedImg = document.getElementById('zoomedImg');
         zoomedImg.src = e.target.src;
         
-        // Inisialisasi modal dengan cara yang aman
         if (!zoomModal) {
             zoomModal = new bootstrap.Modal(document.getElementById('imageZoomModal'));
         }
@@ -209,16 +198,13 @@ function zoomHandler(e) {
 }
 
 function wrapImages() {
-    // Cari semua gambar yang memiliki class 'zoomable'
     const images = document.querySelectorAll('img.zoomable');
     
     images.forEach(img => {
-        // Cek apakah gambar sudah dibungkus agar tidak dibungkus berkali-kali
         if (!img.parentElement.classList.contains('zoom-wrapper')) {
             const wrapper = document.createElement('div');
             wrapper.className = 'zoom-wrapper';
             
-            // Masukkan wrapper ke dalam DOM, lalu pindahkan gambar ke dalam wrapper
             img.parentNode.insertBefore(wrapper, img);
             wrapper.appendChild(img);
         }

@@ -1,11 +1,3 @@
-// ==========================================================================
-// ENHANCEMENTS.JS — UI/UX LAYER
-// Reading progress bar, scroll-to-top, ambient micro-interactions
-// ==========================================================================
-
-// --------------------------------------------------------------------------
-// 1. READING PROGRESS BAR
-// --------------------------------------------------------------------------
 function initReadingProgressBar() {
     let bar = document.getElementById('reading-progress-bar');
     if (!bar) {
@@ -27,9 +19,6 @@ function initReadingProgressBar() {
     updateProgress();
 }
 
-// --------------------------------------------------------------------------
-// 2. SCROLL-TO-TOP BUTTON
-// --------------------------------------------------------------------------
 function initScrollToTop() {
     let btn = document.getElementById('scroll-to-top');
     if (!btn) {
@@ -48,7 +37,6 @@ function initScrollToTop() {
         }
     };
 
-    // Remove old listeners to prevent stacking after SPA route changes
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
     btn = newBtn;
@@ -63,9 +51,6 @@ function initScrollToTop() {
     toggleVisibility();
 }
 
-// --------------------------------------------------------------------------
-// 3. HERO STAT RIBBON (injected after the carousel on home page)
-// --------------------------------------------------------------------------
 function injectHeroStatRibbon() {
     const carousel = document.getElementById('chinaHighlightsCarousel');
     if (!carousel || document.getElementById('hero-stat-ribbon')) return;
@@ -113,9 +98,6 @@ function injectHeroStatRibbon() {
     carousel.insertAdjacentElement('afterend', ribbon);
 }
 
-// --------------------------------------------------------------------------
-// 4. IMPERIAL STATS SECTION (injected inside the home main grid container)
-// --------------------------------------------------------------------------
 function injectImperialStatsSection() {
     const mainEl = document.querySelector('main.container.my-5');
     if (!mainEl || document.getElementById('imperial-stats-section')) return;
@@ -178,19 +160,14 @@ function injectImperialStatsSection() {
             </div>
         </div>`;
 
-    // Insert BEFORE the main section, after the carousel ribbon
     const ribbon = document.getElementById('hero-stat-ribbon');
     const target = ribbon || document.getElementById('chinaHighlightsCarousel');
     if (target) {
         target.insertAdjacentElement('afterend', statsSection);
-        // Move main after it
         statsSection.insertAdjacentElement('afterend', mainEl);
     }
 }
 
-// --------------------------------------------------------------------------
-// 5. SMOOTH IMAGE LAZY LOADING (native + fade-in effect)
-// --------------------------------------------------------------------------
 function initImageLazyLoad() {
     const imgs = document.querySelectorAll('img:not([loading])');
     imgs.forEach(img => {
@@ -204,16 +181,13 @@ function initImageLazyLoad() {
     });
 }
 
-// --------------------------------------------------------------------------
-// 6. DYNASTY CARD HOVER PARALLAX (subtle tilt on mouse move)
-// --------------------------------------------------------------------------
 function initCardTiltEffect() {
     const cards = document.querySelectorAll('.dynasty-card-panel');
     cards.forEach(card => {
         card.addEventListener('mousemove', e => {
-            const rect   = card.getBoundingClientRect();
-            const x      = (e.clientX - rect.left) / rect.width  - 0.5;
-            const y      = (e.clientY - rect.top)  / rect.height - 0.5;
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width  - 0.5;
+            const y = (e.clientY - rect.top)  / rect.height - 0.5;
             card.style.transform = `perspective(800px) rotateY(${x * 3}deg) rotateX(${-y * 2}deg) translateZ(4px)`;
         });
         card.addEventListener('mouseleave', () => {
@@ -226,9 +200,6 @@ function initCardTiltEffect() {
     });
 }
 
-// --------------------------------------------------------------------------
-// 7. SECTION DIVIDERS — inject between timeline blocks on non-history pages
-// --------------------------------------------------------------------------
 function injectSectionDividers() {
     const rows = document.querySelectorAll('.festival-editorial-row');
     rows.forEach((row, i) => {
@@ -241,9 +212,6 @@ function injectSectionDividers() {
     });
 }
 
-// --------------------------------------------------------------------------
-// 8. ACTIVE NAV HIGHLIGHT on scroll (for architecture page)
-// --------------------------------------------------------------------------
 function initActiveNavOnScroll() {
     const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
     navLinks.forEach(link => {
@@ -256,9 +224,6 @@ function initActiveNavOnScroll() {
     });
 }
 
-// --------------------------------------------------------------------------
-// MASTER INIT — called after every SPA route render
-// --------------------------------------------------------------------------
 function initAllEnhancements() {
     initReadingProgressBar();
     initScrollToTop();
@@ -266,17 +231,14 @@ function initAllEnhancements() {
     initCardTiltEffect();
     initActiveNavOnScroll();
 
-    // Home-page-specific injections
     if (document.getElementById('chinaHighlightsCarousel')) {
         setTimeout(() => {
             injectHeroStatRibbon();
             injectImperialStatsSection();
-            // Re-observe new stat cards
             initTimelineScrollObserver();
         }, 50);
     }
 
-    // Editorial pages
     if (document.querySelectorAll('.festival-editorial-row').length > 0) {
         injectSectionDividers();
     }

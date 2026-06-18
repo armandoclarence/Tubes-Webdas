@@ -1,6 +1,3 @@
-// ==========================================================================
-// INTERSECTION OBSERVER ENGINE FOR TIMELINE BLOCKS (FADE IN ON SCROLL)
-// ==========================================================================
 function initTimelineScrollObserver() {
     const blocks = document.querySelectorAll(".timeline-block");
     if (blocks.length === 0) return;
@@ -22,9 +19,6 @@ function initTimelineScrollObserver() {
     blocks.forEach((block) => revealObserver.observe(block));
 }
 
-// ==========================================================================
-// SMART NAVBAR SCROLL DIRECTION LISTENER ENGINE (ANTI-FLICKER & SMOOTH FIXED)
-// ==========================================================================
 let lastScrollTop = 0;
 
 function initSmartNavbarScroll() {
@@ -43,18 +37,16 @@ function initSmartNavbarScroll() {
         }
 
         if (currentScroll > lastScrollTop) {
-            navbar.classList.remove('nav-fade-out'); // Scroll ke BAWAH -> Sticky Muncul
+            navbar.classList.remove('nav-fade-out');
         } else {
-            navbar.classList.add('nav-fade-out');    // Scroll ke ATAS -> Fade Out Sembunyi
+            navbar.classList.add('nav-fade-out');
         }
         lastScrollTop = currentScroll;
     };
 
     window.addEventListener('scroll', window._navbarScrollHandler, { passive: true });
 }
-// ==========================================================================
-// REFINED SCROLL SPY FOR NAVBAR DROPDOWNS AND PERSISTENT TAB INTERACTION
-// ==========================================================================
+
 function initTimelineScrollSpy() {
     const blocks = document.querySelectorAll('.timeline-block'); 
     const tabAnchors = document.querySelectorAll('.era-scroll-wrapper .era-tab-link');
@@ -72,7 +64,6 @@ function initTimelineScrollSpy() {
                     if (href === `#${currentId}`) {
                         tab.classList.add('active');
                         
-                        // OTOMATIS: Menggeser horizontal bar jika posisi era ada di ujung layar HP
                         tab.scrollIntoView({ 
                             behavior: 'smooth', 
                             block: 'nearest', 
@@ -89,9 +80,6 @@ function initTimelineScrollSpy() {
     blocks.forEach(block => spyObserver.observe(block));
 }
 
-// ==========================================================================
-// FORCED INITIALIZATION FOR EXTRA SMOOTH CAROUSEL AUTO-SLIDE (SPA ENGINE)
-// ==========================================================================
 function initCarouselAutoPlay() {
     const carouselElement = document.querySelector('#chinaHighlightsCarousel');
     if (!carouselElement) return;
@@ -103,5 +91,21 @@ function initCarouselAutoPlay() {
             pause: 'hover'
         });
         instance.cycle();
+
+        carouselElement.addEventListener('slide.bs.carousel', function (e) {
+            const nextCaption = e.relatedTarget.querySelector('.carousel-caption-card');
+            if (nextCaption) {
+                nextCaption.style.animation = 'none';
+                nextCaption.style.opacity = '0';
+            }
+        });
+
+        carouselElement.addEventListener('slid.bs.carousel', function (e) {
+            const activeCaption = e.relatedTarget.querySelector('.carousel-caption-card');
+            if (activeCaption) {
+                void activeCaption.offsetWidth; 
+                activeCaption.style.animation = '';
+            }
+        });
     }
 }

@@ -1,9 +1,3 @@
-// ==========================================================================
-// UNIVERSAL RESPONSIVE IMPERIAL NAVBAR VIEW ENGINE
-// ==========================================================================
-// ==========================================================================
-// UNIVERSAL RESPONSIVE IMPERIAL NAVBAR VIEW ENGINE (MODERN SIMPLIFIED HANZI)
-// ==========================================================================
 function getNavbarTemplate(currentRoute, basePrefix) {
     return `
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">

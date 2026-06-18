@@ -1,22 +1,17 @@
-/* ==========================================================================
-   CINEMATIC PARALLAX-ZOOM HERO BACKGROUND ENGINE (RESTORED FIXED)
-   ========================================================================== */
 .carousel-custom-item {
     position: relative;
     height: 70vh;
     min-height: 400px;
-    background-color: #000000;
+    background-color: #000;
     overflow: hidden;
-    /* Membuat ruang isolasi rendering baru untuk anak-anaknya */
-    isolation: isolate; 
+    isolation: isolate;
 }
 
-/* GRADIENT OVERLAY: Lapisan hitam pelindung kontras teks */
 .carousel-custom-item::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
+    background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.2) 60%, transparent 100%);
     z-index: 2;
     pointer-events: none;
 }
@@ -35,35 +30,26 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.75;
-    /* Mengembalikan scale awal mikro agar memiliki ruang gerak zoom-in */
+    opacity: .75;
     transform: scale(1.02) translateY(0);
-    /* AKSELERASI INDEPENDEN PARALLAX GAMBAR */
-    will-change: transform;
-    transition: transform 0.5s ease-out;
 }
 
-/* PEMICU ANIMASI PARALLAX SAAT CAROUSEL AKTIF (KEMBALI BERGERAK) */
 .carousel-item.active .parallax-zoom-frame img {
-    animation: cinematicParallaxMulus 6.5s ease-out forwards !important;
+    will-change: transform;
+    animation: cinematicParallax 6.5s ease-out forwards;
 }
 
-@keyframes cinematicParallaxMulus {
-    0% { 
-        transform: scale(1.02) translateY(0); 
-    }
-    100% { 
-        /* Bergerak membesar dan bergeser naik sedikit secara sinematik */
-        transform: scale(1.12) translateY(-15px); 
-    }
+.carousel-item:not(.active) .parallax-zoom-frame img {
+    will-change: auto;
 }
 
-/* ==========================================================================
-   SMOOTH CAROUSEL CAPTION ENGINE (TEXT FIXED)
-   ========================================================================== */
+@keyframes cinematicParallax {
+    0%   { transform: scale(1.02) translateY(0); }
+    100% { transform: scale(1.12) translateY(-15px); }
+}
+
 .carousel-custom-item .carousel-caption {
-    /* Dipaksa berada di lapisan z-index paling atas secara mutlak */
-    z-index: 3 !important; 
+    z-index: 3 !important;
 }
 
 .carousel-caption-card {
@@ -72,29 +58,52 @@
     border-radius: 0;
     padding: 5px 0 5px 25px;
     margin-bottom: 5%;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
-    
-    /* Proteksi pergerakan teks tanpa mengganggu sasis background */
-    will-change: transform, opacity;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.8));
 }
 
-/* ANIMASI MELUNCUR TEKS DI ATAS LAYER PARALLAX */
 .carousel-item.active .carousel-caption-card {
-    animation: captionSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    animation: captionSlide .8s cubic-bezier(.16,1,.3,1) .2s both;
 }
 
-@keyframes captionSlideIn {
-    0% {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes captionSlide {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (min-width: 768px) {
-    .carousel-custom-item { height: 550px; }
-    .carousel-caption-card { padding: 15px 0 15px 35px; }
+    .carousel-custom-item   { height: 550px; }
+    .carousel-caption-card  { padding: 15px 0 15px 35px; }
+}
+
+.welcome-card {
+    border: 1px solid rgba(163,0,0,.1) !important;
+    border-radius: 14px !important;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(24px);
+    animation: cardEntrance .6s cubic-bezier(.16,1,.3,1) both;
+    animation-delay: calc(var(--card-index, 0) * 120ms + 200ms);
+}
+
+@keyframes cardEntrance {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(163,0,0,.12) !important;
+    border-color: rgba(163,0,0,.25) !important;
+    transition: transform .4s cubic-bezier(.25,1,.5,1), box-shadow .4s cubic-bezier(.25,1,.5,1);
+}
+
+.welcome-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+}
+
+.welcome-card:hover .card-img-top {
+    transform: scale(1.06);
+    transition: transform .6s cubic-bezier(.25,1,.5,1);
 }
