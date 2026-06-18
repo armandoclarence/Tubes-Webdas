@@ -48,7 +48,12 @@ function getNavbarTemplate(currentRoute, basePrefix) {
                             <li><a class="dropdown-item sub-anchor-link ${currentRoute === '/life' ? 'text-gold' : ''}" href="${basePrefix}/life">👑 生活 Daily Court Life</a></li>
                         </ul>
                     </li>
-
+                    <li class="nav-item dropdown">
+                        <a class="nav-link ${currentRoute === '/faq' ? 'active' : ''}" 
+                            href="${basePrefix}/faq">
+                            <span class="d-lg-none d-xl-inline me-1 small opacity-75">常问问题</span> FAQ
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

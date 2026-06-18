@@ -1,25 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const faqQuestions = document.querySelectorAll(".faq-question");
+document.addEventListener("click", function (event) {
+    const question = event.target.closest(".faq-question");
+    if (!question) return;
 
-    faqQuestions.forEach(question => {
-        question.addEventListener("click", function() {
-            const item = this.parentElement;
-            const answer = this.nextElementSibling;
+    const item = question.parentElement;
+    const answer = item ? item.querySelector(".faq-answer") : null;
 
-            if (item.classList.contains("active")) {
-                item.classList.remove("active");
-                answer.style.maxHeight = null;
-            } else {
-                // Menutup FAQ lain yang sedang terbuka
-                document.querySelectorAll(".faq-item").forEach(el => {
-                    el.classList.remove("active");
-                    el.querySelector(".faq-answer").style.maxHeight = null;
-                });
+    if (!answer) {
+        console.error("Found .faq-question but couldn't find its .faq-answer element.");
+        return;
+    }
 
-                // Membuka FAQ yang di-klik
-                item.classList.add("active");
-                answer.style.maxHeight = answer.scrollHeight + "px";
-            }
+    if (item.classList.contains("active")) {
+        item.classList.remove("active");
+        answer.style.maxHeight = "";
+    } else {
+        document.querySelectorAll(".faq-item.active").forEach(el => {
+            el.classList.remove("active");
+            const openAnswer = el.querySelector(".faq-answer");
+            if (openAnswer) openAnswer.style.maxHeight = "";
         });
-    });
+
+        item.classList.add("active");
+        answer.style.maxHeight = answer.scrollHeight + "px";
+    }
 });
