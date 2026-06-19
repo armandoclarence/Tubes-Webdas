@@ -88,7 +88,7 @@ function renderHomeDashboard() {
 
             <div class="carousel-item carousel-custom-item">
                 <div class="parallax-zoom-frame">
-                    <img src="${basePrefix}/img/arch-guardian.avif" alt="Qingming Festival">
+                    <img src="${basePrefix}/img/Qingming.webp" alt="Qingming Festival">
                 </div>
                 <div class="carousel-caption container text-start">
                     <div class="carousel-caption-card col-12 col-md-8 col-lg-7 shadow-lg">
