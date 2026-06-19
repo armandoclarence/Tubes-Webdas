@@ -39,7 +39,7 @@ function renderHomeDashboard() {
                         <span class="badge bg-warning text-dark mb-2 fw-bold text-uppercase">Celebration</span>
                         <h2 class="h3 h1-md fw-bold mb-2">1. Lunar New Year</h2>
                         <p class="small text-light d-none d-md-block">The grandest festival marking family reunions and vibrant spring traditions.</p>
-                        <a href="${basePrefix}/festival" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore</a>
+                        <a href="${basePrefix}/festival#spring" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore</a>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@ function renderHomeDashboard() {
                         <span class="badge bg-warning text-dark mb-2 fw-bold text-uppercase">Tradition</span>
                         <h2 class="h3 h1-md fw-bold mb-2">2. Lantern Festival</h2>
                         <p class="small text-light d-none d-md-block">A stunning display of silk lanterns symbolizing peace and renewal.</p>
-                        <a href="${basePrefix}/festival" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore</a>
+                        <a href="${basePrefix}/festival#lantern" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore</a>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@ function renderHomeDashboard() {
                         <span class="badge bg-warning text-dark mb-2 fw-bold text-uppercase">Harvest</span>
                         <h2 class="h3 h1-md fw-bold mb-2">3. Mid-Autumn Festival</h2>
                         <p class="small text-light d-none d-md-block">Celebrating the full moon with family gatherings and mooncakes.</p>
-                        <a href="${basePrefix}/festival" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore</a>
+                        <a href="${basePrefix}/festival#mid-autumn" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore</a>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@ function renderHomeDashboard() {
                         <span class="badge bg-warning text-dark mb-2 fw-bold text-uppercase">Rhythm</span>
                         <h2 class="h3 h1-md fw-bold mb-2">4. Dragon Boat Festival</h2>
                         <p class="small text-light d-none d-md-block">Competitive races rowed to the beat of thunderous drums.</p>
-                        <a href="${basePrefix}/festival" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore</a>
+                        <a href="${basePrefix}/festival#dragon" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore</a>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@ function renderHomeDashboard() {
                         <span class="badge bg-warning text-dark mb-2 fw-bold text-uppercase">Honor</span>
                         <h2 class="h3 h1-md fw-bold mb-2">5. Qingming Festival</h2>
                         <p class="small text-light d-none d-md-block">A day of ancestral veneration and connecting with nature.</p>
-                        <a href="${basePrefix}/festival" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore</a>
+                        <a href="${basePrefix}/festival#winter" class="btn btn-warning btn-sm fw-bold px-4 mt-1">Explore</a>
                     </div>
                 </div>
             </div>

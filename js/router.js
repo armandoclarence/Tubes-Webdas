@@ -246,4 +246,4 @@ function initForm(){
             e.target.reset();
         }
     });
-}
+}   
